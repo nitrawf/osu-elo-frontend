@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 
 

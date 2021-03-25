@@ -37,6 +37,7 @@ export default function AddMatch() {
   const [beatmapList, setBeatmapList] = useState([])
   const [filteredPlayerList, setFilteredPlayerList] = useState([])
   const [filteredBeatmapList, setFilteredBeatmapList] = useState([])
+  const [errorMsg, setErrorMsg] = useState('')
 
   const handleMatchId = (x) => {
     setMatchId(x)
@@ -55,27 +56,54 @@ export default function AddMatch() {
       fetch(`/api/match/new/get-details/${matchId}`)
       .then(resp => resp.json())
       .then(data => {
+        if ('error' in data) {
+          console.error(data['error'])
+          setErrorMsg(data['error'])
+          return
+        }
         setPlayerList(data['players'])
         setBeatmapList(data['beatmaps'])
+        setErrorMsg('')
+        setActiveStep(activeStep + 1);
       })
     }
-    setActiveStep(activeStep + 1);
+    else if (activeStep === 1) {
+      if (filteredPlayerList.length < 2) {
+        setErrorMsg('Select atleast 2 players.')
+      }
+      else {
+        setErrorMsg('')
+        setActiveStep(activeStep + 1)
+      }
+    }
+    else if (activeStep === steps.length - 1) {
+      if (filteredBeatmapList.length === 0) {
+        setErrorMsg('Select atleast 1 beatmap.')
+      }
+      else {
+        setErrorMsg('')
+        fetch(`/api/match/new/process-match`, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({matchId: matchId, filteredPlayerList : filteredPlayerList, filteredBeatmapList: filteredBeatmapList})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+          alert(JSON.stringify(data))
+          setActiveStep(activeStep + 1);
+        })
+      }    
+    }
   };
 
   const handleBack = () => {
+    setErrorMsg('')
     setActiveStep(activeStep - 1);
   };
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            osu!India
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -88,15 +116,18 @@ export default function AddMatch() {
               </Step>
             ))}
           </Stepper>
+          {
+            errorMsg !== '' &&
+            <Typography color='error' align='right' variant='overline'>{errorMsg}</Typography>
+          }
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Match added.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  Go to match history tab to view the match.
                 </Typography>
               </React.Fragment>
             ) : (
