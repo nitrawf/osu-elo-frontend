@@ -1,13 +1,14 @@
-import { useStyles } from '../jss/addMatchStyles'
+import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
+import { useRouteMatch } from 'react-router-dom';
 
 export default function MatchHistory(props) {
     const classes = useStyles();
-
+    let match = useRouteMatch();
     const columns = [
         {
             field: 'id',
@@ -45,7 +46,7 @@ export default function MatchHistory(props) {
     useEffect(() => getMatches(), [])
 
     const handleClick = (param, event) => {
-        props.parentCallback(param.id)
+        props.history.push(`${match.url}/${param.id}`);
     }
     
     return(

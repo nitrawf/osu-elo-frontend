@@ -1,14 +1,15 @@
-import { useStyles } from '../jss/addMatchStyles'
+import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link, useParams } from 'react-router-dom';
 
-export default function MatchDetail(props) {
+export default function MatchDetail() {
     const classes = useStyles();
-
+    let { matchId } = useParams();
     const columns = [
         {
             field: 'player_id', 
@@ -51,16 +52,12 @@ export default function MatchDetail(props) {
     const [stats, setStats] = useState([]);
 
     const getStats = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/match/get-summary/${props.matchId}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/match/get-summary/${matchId}`)
         .then(resp => resp.json())
         .then(data => setStats(data))
     }
     
-    useEffect(() => getStats(), [])
-
-    const handleClick = () => {
-        props.parentCallback('')
-    }
+    useEffect(getStats, [])
 
     return(
         <Fragment>
@@ -76,12 +73,13 @@ export default function MatchDetail(props) {
                         columns={columns} 
                         getRowId={(row)=> row.player_id}
                     />
-                    <Button onClick={handleClick} className={classes.button}>
-                    Back
-                    </Button>
+                    <Link to='/matches' className={classes.buttons} style={{ paddingTop: 20}}>
+                        <Button color="primary">
+                        Back
+                        </Button>
+                    </Link>
                 </Paper>
             </main>
         </Fragment>
-        
     )
 }
