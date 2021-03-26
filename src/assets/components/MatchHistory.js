@@ -20,14 +20,14 @@ export default function MatchHistory(props) {
             flex: 1
         },
         {
-            field: 'startTime',
+            field: 'start_time',
             headerName: 'Start Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
             flex: 1
         },
         
         {
-            field: 'endTime',
+            field: 'end_time',
             headerName: 'End Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
             flex: 1

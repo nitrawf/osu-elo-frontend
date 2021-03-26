@@ -11,37 +11,37 @@ export default function MatchDetail(props) {
 
     const columns = [
         {
-            field: 'playerId', 
+            field: 'player_id', 
             headerName: 'Avatar',
             renderCell: (params) => (
                 <img src={`https://a.ppy.sh/${params.value}`} alt='Avatar not available' height="64" width="64"/>
             )
         },
         {
-            field: 'playerName',
+            field: 'player_name',
             headerName: 'Player Name',
             flex: 1
         },
         {
-            field: 'totalScore',
+            field: 'total_score',
             headerName: 'Total Score',
             flex: 1,
             type: 'number'
         },
         {
-            field: 'averageScore',
+            field: 'average_score',
             headerName: 'Average Score',
             flex: 1,
             type: 'number'
         },
         {
-            field: 'averageAccuracy',
+            field: 'average_accuracy',
             headerName: 'Average Accuracy',
             valueFormatter: (params) => `${params.value * 100}%`,
             flex: 1
         },
         {
-            field: 'averagePosition',
+            field: 'average_position',
             headerName: 'Average Position',
             flex: 1,
             type: 'number'
@@ -74,7 +74,7 @@ export default function MatchDetail(props) {
                         autoHeight 
                         rows={stats} 
                         columns={columns} 
-                        getRowId={(row)=> row.playerId}
+                        getRowId={(row)=> row.player_id}
                     />
                     <Button onClick={handleClick} className={classes.button}>
                     Back
