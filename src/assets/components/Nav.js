@@ -71,19 +71,19 @@ export default function Nav() {
           <Typography variant="h6" color="inherit" noWrap>
             osu!India
           </Typography>
+            <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="full width tabs example"
+          >
+            <Tab label="Add Match" {...a11yProps(0)} />
+            <Tab label="Match History" {...a11yProps(1)} />
+            <Tab label="Players" {...a11yProps(2)} />
+          </Tabs>
         </Toolbar>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="Add Match" {...a11yProps(0)} />
-          <Tab label="Match History" {...a11yProps(1)} />
-          <Tab label="Players" {...a11yProps(2)} />
-        </Tabs>
+        
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
