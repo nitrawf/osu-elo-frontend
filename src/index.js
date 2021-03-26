@@ -11,8 +11,7 @@ ReactDOM.render(
   //     <Route exact path="/" component={ AddMatch } />
   //   </Switch>
   // </Router>
-  // <Nav />,
-  <h1>{ process.env.REACT_APP_API_URL }</h1>,
+  <Nav />,
   document.getElementById('root')
 );
 

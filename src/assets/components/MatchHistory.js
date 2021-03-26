@@ -37,7 +37,7 @@ export default function MatchHistory(props) {
     const [matches, setMatches] = useState([]);
 
     const getMatches = () => {
-        fetch('/api/match/get-all')
+        fetch(`${process.env.REACT_APP_API_URL}/api/match/get-all`)
         .then(resp => resp.json())
         .then(data => setMatches(data))
     }

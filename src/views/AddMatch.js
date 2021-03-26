@@ -53,7 +53,7 @@ export default function AddMatch() {
 
   const handleNext = () => {
     if (activeStep === 0) {
-      fetch(`/api/match/new/get-details/${matchId}`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/match/new/get-details/${matchId}`)
       .then(resp => resp.json())
       .then(data => {
         if ('error' in data) {
@@ -82,7 +82,7 @@ export default function AddMatch() {
       }
       else {
         setErrorMsg('')
-        fetch(`/api/match/new/process-match`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/match/new/process-match`, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({matchId: matchId, filteredPlayerList : filteredPlayerList, filteredBeatmapList: filteredBeatmapList})
