@@ -4,10 +4,14 @@ import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import { useRouteMatch } from 'react-router-dom';
+import { authFetch, useAuth } from '../auth';
 
 export default function MatchHistory(props) {
     const classes = useStyles();
+    let logged = useAuth()[0];
     let match = useRouteMatch();
     const columns = [
         {
@@ -36,6 +40,8 @@ export default function MatchHistory(props) {
     ]
 
     const [matches, setMatches] = useState([]);
+    const [selectedMatches, setSelectedMatches] = useState([]);
+    const [update, setUpdate] = useState(0);
 
     const getMatches = () => {
         fetch(`${process.env.REACT_APP_API_URL}/api/match/get-all`)
@@ -43,12 +49,34 @@ export default function MatchHistory(props) {
         .then(data => setMatches(data))
     }
     
-    useEffect(() => getMatches(), [])
+    useEffect(() => getMatches(), [update])
 
     const handleClick = (param, event) => {
         props.history.push(`${match.url}/${param.id}`);
     }
+
+    const handleSelectionChange = (newSelection) => {
+        setSelectedMatches(newSelection.selectionModel);
+        if(newSelection.selectionModel.length > 0) {
+            setBtnDisabled(false);
+        }
+        else {
+            setBtnDisabled(true);
+        }
+    }
     
+    const handleDelete = () => {
+        authFetch(`${process.env.REACT_APP_API_URL}/api/match/delete/`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({'matchIds' : selectedMatches})
+        })
+        .then(resp => resp.json())
+        .then(data => alert(JSON.stringify(data)))
+        .then(setTimeout(() => setUpdate(update + 1), 5000))
+    }
+    
+    const [btnDisabled, setBtnDisabled] = useState(true)
     return(
         <Fragment>
             <CssBaseline />
@@ -58,12 +86,21 @@ export default function MatchHistory(props) {
                        Match History
                     </Typography>
                     <DataGrid 
-                        autoHeight 
+                        autoHeight
+                        checkboxSelection={logged}
                         rows={matches} 
                         columns={columns} 
                         pageSize={8}
                         onRowClick={handleClick}
+                        onSelectionModelChange={handleSelectionChange}
+                        selectionModel={selectedMatches}
                     />
+                    {
+                        logged &&
+                        <Box className={classes.buttons} style={{ paddingTop: 20 }}>
+                            <Button variant='contained' color="primary" disabled={btnDisabled} onClick={handleDelete}> Delete </Button>
+                        </Box>
+                    }
                 </Paper>
             </main>
         </Fragment>

@@ -15,7 +15,7 @@ export default function MatchDetail() {
             field: 'player_id', 
             headerName: 'Avatar',
             renderCell: (params) => (
-                <img src={`https://a.ppy.sh/${params.value}`} alt='Avatar not available' height="64" width="64"/>
+                <img src={`https://a.ppy.sh/${params.value}`} alt='Avatar not available' height="52" width="52"/>
             )
         },
         {
