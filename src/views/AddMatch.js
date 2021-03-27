@@ -10,8 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import MatchIdForm from '../assets/components/MatchIdForm'
 import PlayerForm from '../assets/components/PlayerForm';
 import BeatmapForm from '../assets/components/BeatmapForm';
+import { authFetch } from '../auth'
 
-export default function AddMatch() {
+export default function AddMatch(props) {
   const classes = useStyles();
 
   const steps = ['Match Details', 'Player Details', 'Map Details'];
@@ -51,8 +52,14 @@ export default function AddMatch() {
 
   const handleNext = () => {
     if (activeStep === 0) {
-      fetch(`${process.env.REACT_APP_API_URL}/api/match/new/get-details/${matchId}`)
-      .then(resp => resp.json())
+      authFetch(`${process.env.REACT_APP_API_URL}/api/match/new/get-details/${matchId}`)
+      .then(resp => {
+        if (resp.status === 401){
+          return {'error' : 'You need to authenticate to continue.'}
+        }
+        return resp.json()
+      }
+      )
       .then(data => {
         if ('error' in data) {
           console.error(data['error'])
@@ -80,15 +87,21 @@ export default function AddMatch() {
       }
       else {
         setErrorMsg('')
-        fetch(`${process.env.REACT_APP_API_URL}/api/match/new/process-match`, {
+        authFetch(`${process.env.REACT_APP_API_URL}/api/match/new/process-match`, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({matchId: matchId, filteredPlayerList : filteredPlayerList, filteredBeatmapList: filteredBeatmapList})
         })
-        .then(resp => resp.json())
+        .then(resp => {
+          if (resp.status === 401){
+            return {'error' : 'You need to authenticate to continue.'}
+          }
+          return resp.json()
+        })
         .then(data => {
           alert(JSON.stringify(data))
           setActiveStep(activeStep + 1);
+          props.history.push(`/matches/${data.id}`)
         })
       }    
     }

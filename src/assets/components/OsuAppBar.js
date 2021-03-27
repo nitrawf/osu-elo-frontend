@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,6 +8,8 @@ import { AccountCircle } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+import {login, useAuth, logout} from "../../auth"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     alignItems:"center",
     justifyContent:"center"
-  }
+  },
 }));
 
 export default function OsuAppBar() {
-
+  let logged = useAuth()[0];
   const classes = useStyles();
   const [tabValue, setTabValue] = useState(0)
   
@@ -37,12 +39,27 @@ export default function OsuAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Tabs value={tabValue} onChange={handleTabChange} style={{ flex: 1}}>
+          <Tabs value={tabValue} onChange={handleTabChange} style={{ flex: 1 }}>
             <Tab className={classes.tabLink} key="home" value={0} label="Home" component={Link} to="/" /> 
             <Tab className={classes.tabLink} key="matches" value={1} label="Matches" component={Link} to="/matches" />
-            <Tab className={classes.tabLink} key="players" value={2} label="Players" component={Link} to="/players" />
+            <Tab className={classes.tabLink} key="players" value={2} label="Players" component={Link} to="/players" />         
           </Tabs>
-          <IconButton><AccountCircle /><Typography variant="button" color="inherit" className={classes.title}>Login</Typography></IconButton> 
+          {!logged ?
+          <IconButton component={Link} key="login" to="/login">
+            <AccountCircle />
+            <Typography variant="button" color="inherit" className={classes.title}>
+              Login
+            </Typography>
+          </IconButton>
+          :
+          <IconButton key="logout" onClick={() => {logout();logged=false}}>
+            <AccountCircle />
+            <Typography variant="button" color="inherit" className={classes.title}>
+              Logout
+            </Typography>
+          </IconButton>
+          }
+
         </Toolbar>
       </AppBar>
     </div>

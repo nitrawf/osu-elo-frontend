@@ -10635,6 +10635,7 @@ fsevents@^1.2.7:
     react-router-dom: ^5.2.0
     react-scripts: 4.0.3
     react-swipeable-views: ^0.13.9
+    react-token-auth: ^1.1.8
     web-vitals: ^1.0.1
   languageName: unknown
   linkType: soft
@@ -12483,6 +12484,13 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ^15.3.0 || ^16.0.0
   checksum: 62f11989aea844999a41535065b5ea774a504769dc9dcdcd04ae04ed0ce6c1ae4ec5810427382b84e9a266264e7eef8e6bfeee32833eadcd74c3898c2f80e98f
+  languageName: node
+  linkType: hard
+
+"react-token-auth@npm:^1.1.8":
+  version: 1.1.8
+  resolution: "react-token-auth@npm:1.1.8"
+  checksum: 2f24c65048adb4b478c7dbc411f88d2d2c08764c85a0d660297b24b890f126a594bf323910198eba6075a4edda3f846fafa0dfa5d867f8bd86322763f51fe324
   languageName: node
   linkType: hard
 
