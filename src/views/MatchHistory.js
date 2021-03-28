@@ -73,7 +73,7 @@ export default function MatchHistory(props) {
         })
         .then(resp => resp.json())
         .then(data => alert(JSON.stringify(data)))
-        .then(setTimeout(() => setUpdate(update + 1), 5000))
+        .then(setTimeout(() => setUpdate(update + 1), 2000))
     }
     
     const [btnDisabled, setBtnDisabled] = useState(true)

@@ -37,7 +37,6 @@ export default function PlayerForm(props) {
                     rowHeight={64} 
                     rows={props.playerList} 
                     columns={columns} 
-                    pageSize={8}
                     checkboxSelection 
                     onSelectionModelChange={handleSelectionChange} 
                     selectionModel={selectionModel}

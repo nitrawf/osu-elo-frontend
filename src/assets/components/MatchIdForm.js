@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 export default function MatchIdForm(props) {
 
   const [matchId, setMatchId] = useState(props.matchId)
+  const [defaultElo, setDefaultElo] = useState(props.defaultElo)
 
   const handleMatchIdChange = (e) => {
     setMatchId(e.target.value)
-    props.parentCallback(e.target.value)
+    props.handleMatchIdChange(e.target.value)
+  }
+
+  const handleDefaultEloChange = (e) => {
+    setDefaultElo(e.target.value)
+    props.handleDefaultEloChange(e.target.value)
   }
 
   return (
@@ -32,7 +42,25 @@ export default function MatchIdForm(props) {
               onChange={handleMatchIdChange}
             />
           </Grid>
+          <Grid item xs={12}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="default-elo-input-label">Initial ELO</InputLabel>
+              <Select
+                labelId="default-elo-select-label-id"
+                id="default-elo-select-id"
+                value={defaultElo}
+                onChange={handleDefaultEloChange}
+                
+                label="Initial ELO"
+              >
+                <MenuItem value={1600}>Match 1 | 1600</MenuItem>
+                <MenuItem value={1300}>Match 2 | 1300</MenuItem>
+                <MenuItem value={1000}>Match 3 | 1000</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
+        
       </div>     
     </React.Fragment >
   );

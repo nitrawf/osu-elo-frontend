@@ -50,7 +50,6 @@ export default function BeatmapForm(props) {
                     rowHeight={75} 
                     rows={props.beatmapList} 
                     columns={columns} 
-                    pageSize={8} 
                     checkboxSelection 
                     onSelectionModelChange={handleSelectionChange} 
                     selectionModel={selectionModel}

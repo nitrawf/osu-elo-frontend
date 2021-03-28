@@ -20,7 +20,7 @@ export default function AddMatch(props) {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <MatchIdForm parentCallback={handleMatchId} matchId={matchId}/>;
+        return <MatchIdForm handleMatchIdChange={handleMatchId} handleDefaultEloChange={handleDefaultElo} matchId={matchId} defaultElo={defaultElo}/>;
       case 1:
         return <PlayerForm playerList={playerList} parentCallback={handlePlayerFilter}/>;
       case 2:
@@ -32,6 +32,7 @@ export default function AddMatch(props) {
 
   const [activeStep, setActiveStep] = useState(0)
   const [matchId, setMatchId] = useState('')
+  const [defaultElo, setDefaultElo] = useState(1300)
   const [playerList, setPlayerList] = useState([])
   const [beatmapList, setBeatmapList] = useState([])
   const [filteredPlayerList, setFilteredPlayerList] = useState([])
@@ -48,6 +49,10 @@ export default function AddMatch(props) {
 
   const handlePlayerFilter = (x) => {
     setFilteredPlayerList(x)
+  }
+  
+  const handleDefaultElo = (x) => {
+    setDefaultElo(x)
   }
 
   const handleNext = () => {
@@ -90,7 +95,7 @@ export default function AddMatch(props) {
         authFetch(`${process.env.REACT_APP_API_URL}/api/match/new/process-match`, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({matchId: matchId, filteredPlayerList : filteredPlayerList, filteredBeatmapList: filteredBeatmapList})
+          body: JSON.stringify({matchId: matchId, filteredPlayerList : filteredPlayerList, filteredBeatmapList: filteredBeatmapList, defaultElo: defaultElo})
         })
         .then(resp => {
           if (resp.status === 401){

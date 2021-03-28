@@ -5,11 +5,32 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
+import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
+
 import { Link, useParams } from 'react-router-dom';
 
 export default function MatchDetail() {
     const classes = useStyles();
     let { matchId } = useParams();
+
+    const renderEloCell = (value) => {
+        if (value > 0) {
+            return (
+                <Fragment>
+                    <TrendingUpRoundedIcon color='primary'/>&nbsp;&nbsp;{value}
+                </Fragment>     
+            )
+        }
+        else {
+            return (
+                <Fragment>
+                    <TrendingDownRoundedIcon color='error'/>&nbsp;&nbsp;{value}
+                </Fragment>
+            )
+        }
+    }
+
     const columns = [
         {
             field: 'player_id', 
@@ -26,27 +47,40 @@ export default function MatchDetail() {
         {
             field: 'total_score',
             headerName: 'Total Score',
-            flex: 1,
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'average_score',
-            headerName: 'Average Score',
-            flex: 1,
+            headerName: 'Avg Score',
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'average_accuracy',
-            headerName: 'Average Accuracy',
+            headerName: 'Accuracy',
             valueFormatter: (params) => `${params.value * 100}%`,
-            flex: 1
+            flex: 0.5
         },
         {
             field: 'average_position',
-            headerName: 'Average Position',
-            flex: 1,
+            headerName: 'Avg Position',
+            flex: 0.5,
             type: 'number'
-        },       
+        },
+        {
+            field: 'elo_change',
+            headerName: 'ELO change',
+            flex: 0.5,
+            type: 'number',
+            renderCell: (params) => (renderEloCell(params.value))
+        },
+        {
+            field: 'elo',
+            headerName: 'New ELO',
+            flex: 0.75,
+            type: 'number'
+        } 
     ]
 
     const [stats, setStats] = useState([]);
@@ -72,6 +106,12 @@ export default function MatchDetail() {
                         rows={stats} 
                         columns={columns} 
                         getRowId={(row)=> row.player_id}
+                        sortModel={[
+                            {
+                                field: 'average_score',
+                                sort: 'desc'
+                            }
+                        ]}
                     />
                     <Link to='/matches' className={classes.buttons} style={{ paddingTop: 20}}>
                         <Button color="primary">
