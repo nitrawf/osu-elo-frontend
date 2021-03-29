@@ -55,6 +55,10 @@ export default function MatchHistory(props) {
         props.history.push(`${match.url}/${param.id}`);
     }
 
+    const handleAdd = (e) => {
+        props.history.push(`${match.url}/new`)
+    }
+
     const handleSelectionChange = (newSelection) => {
         setSelectedMatches(newSelection.selectionModel);
         if(newSelection.selectionModel.length > 0) {
@@ -95,11 +99,25 @@ export default function MatchHistory(props) {
                         onSelectionModelChange={handleSelectionChange}
                         selectionModel={selectedMatches}
                     />
+                    
                     {
                         logged &&
-                        <Box className={classes.buttons} style={{ paddingTop: 20 }}>
-                            <Button variant='contained' color="primary" disabled={btnDisabled} onClick={handleDelete}> Delete </Button>
-                        </Box>
+                        <Fragment>
+                        {/* <Box style={{ paddingTop: 20 }}>
+                            
+                        </Box> */}
+                            <Box style={{ justifyContent: 'space-between', paddingTop: 20, display: 'flex' }}>
+                                <Button variant='contained' color="primary" onClick={handleAdd}> New Match </Button>
+                                <Button 
+                                variant='contained' 
+                                color="primary" 
+                                disabled={btnDisabled} 
+                                onClick={handleDelete}> 
+                                    Delete {selectedMatches.length === 0 ? '' : `Selected ${selectedMatches.length}`} 
+                                </Button>
+                            </Box>
+                        </Fragment>
+                        
                     }
                 </Paper>
             </main>

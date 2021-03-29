@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import MatchIdForm from '../assets/components/MatchIdForm'
 import PlayerForm from '../assets/components/PlayerForm';
 import BeatmapForm from '../assets/components/BeatmapForm';
+import Box from '@material-ui/core/Box';
 import { authFetch } from '../auth'
 
 export default function AddMatch(props) {
@@ -113,8 +114,14 @@ export default function AddMatch(props) {
   };
 
   const handleBack = () => {
-    setErrorMsg('')
-    setActiveStep(activeStep - 1);
+    if (activeStep === 0) {
+      props.history.push('/matches')
+    }
+    else {
+      setErrorMsg('')
+      setActiveStep(activeStep - 1);
+    }
+   
   };
 
   return (
@@ -149,21 +156,20 @@ export default function AddMatch(props) {
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
+                <Box style={{ justifyContent: 'space-between', paddingTop: 20, display: 'flex' }}>
+                  
+                  <Button variant="contained" color="secondary" onClick={handleBack}>
+                    Back
+                  </Button>
+                  
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
-                    className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                   </Button>
-                </div>
+                </Box>
               </React.Fragment>
             )}
           </React.Fragment>

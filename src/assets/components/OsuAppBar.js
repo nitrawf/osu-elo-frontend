@@ -41,8 +41,7 @@ export default function OsuAppBar() {
         <Toolbar>
           <Tabs value={tabValue} onChange={handleTabChange} style={{ flex: 1 }}>
             <Tab className={classes.tabLink} key="matches" value={0} label="Matches" component={Link} to="/matches" />
-            <Tab className={classes.tabLink} key="players" value={1} label="Players" component={Link} to="/players" />  
-            <Tab className={classes.tabLink} key="addMatch" value={2} label="Add Match" component={Link} to="/" />        
+            <Tab className={classes.tabLink} key="players" value={1} label="Players" component={Link} to="/players" />        
           </Tabs>
           {!logged ?
           <IconButton component={Link} key="login" to="/login">
