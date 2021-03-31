@@ -59,7 +59,7 @@ export default function MatchDetail() {
         {
             field: 'average_accuracy',
             headerName: 'Accuracy',
-            valueFormatter: (params) => `${params.value * 100}%`,
+            valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
             flex: 0.5
         },
         {

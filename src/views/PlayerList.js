@@ -43,14 +43,8 @@ export default function PlayerList() {
         {
             field: 'average_accuracy',
             headerName: 'Average Accuracy',
-            valueFormatter: (params) => `${params.value * 100}%`,
+            valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
             flex: 1
-        },
-        {
-            field: 'average_position',
-            headerName: 'Average Position',
-            flex: 1,
-            type: 'number'
         },
         {
             field: 'maps_played',

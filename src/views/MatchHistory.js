@@ -95,6 +95,12 @@ export default function MatchHistory(props) {
                         rows={matches} 
                         columns={columns} 
                         pageSize={8}
+                        sortModel={[
+                            {
+                                field: 'start_time',
+                                sort: 'desc'
+                            }
+                        ]}
                         onRowClick={handleClick}
                         onSelectionModelChange={handleSelectionChange}
                         selectionModel={selectedMatches}
