@@ -30,7 +30,9 @@ export default function Login(props) {
         if (token.access_token){
           login(token)
           console.log(token)
-          props.history.push("/")          
+          window.localStorage.setItem('user', creds['username'])
+          props.history.push("/")
+
         }
         else {
           console.log("Please type in correct username/password")

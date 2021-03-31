@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import { AccountCircle } from '@material-ui/icons';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -35,6 +36,15 @@ export default function OsuAppBar() {
     setTabValue(val);
   }
   
+  useEffect(() => { // For setting the value of selected tab on page load
+    if (window.location.pathname.startsWith('/matches')) {
+      setTabValue(0);
+    }
+    else if (window.location.pathname.startsWith('/players')) {
+      setTabValue(1);
+    }
+  }, [])
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -45,18 +55,21 @@ export default function OsuAppBar() {
           </Tabs>
           {!logged ?
           <IconButton component={Link} key="login" to="/login">
-            <AccountCircle />
+            <AccountCircleIcon />
             <Typography variant="button" color="inherit" className={classes.title}>
               Login
             </Typography>
           </IconButton>
           :
-          <IconButton key="logout" onClick={() => {logout();logged=false}}>
-            <AccountCircle />
-            <Typography variant="button" color="inherit" className={classes.title}>
-              Logout
+          <Fragment>
+            <Typography style={{ paddingLeft: 5 }} variant="button" color="inherit">
+              Welcome {window.localStorage.getItem('user')}!
             </Typography>
-          </IconButton>
+            <IconButton key="logout"onClick={() => {logout();logged=false}}>
+              <ExitToAppIcon />
+            </IconButton>
+          </Fragment>
+          
           }
 
         </Toolbar>
