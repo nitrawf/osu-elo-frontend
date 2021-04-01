@@ -7,6 +7,14 @@ import MatchHistory from './views/MatchHistory';
 import Login from './views/Login';
 import PlayerList from './views/PlayerList';
 import { useAuth } from './auth'
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
 
 export default function App() {
     const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -20,6 +28,7 @@ export default function App() {
     }
 
     return(
+      <ThemeProvider theme={theme}>
         <Fragment> 
           <Router>
             <OsuAppBar />
@@ -35,6 +44,7 @@ export default function App() {
             </Switch>
           </Router>
         </Fragment>
+      </ThemeProvider>
       );
 }
 

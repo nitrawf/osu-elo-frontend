@@ -7,13 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
-
+import { useStylesAntDesign } from '../assets/jss/antdStyles'
 import { Link, useParams } from 'react-router-dom';
 
 export default function MatchDetail() {
     const classes = useStyles();
     let { matchId } = useParams();
-
+    const antdClasses = useStylesAntDesign();
     const renderEloCell = (value) => {
         if (value > 0) {
             return (
@@ -47,41 +47,42 @@ export default function MatchDetail() {
         {
             field: 'total_score',
             headerName: 'Total Score',
-            width: 150,
+            width: 200,
             type: 'number'
         },
         {
             field: 'average_score',
             headerName: 'Avg Score',
-            width: 150,
+            width: 200,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            width: 150,
+            width: 200,
             type: 'number',
         },
         {
             field: 'average_position',
             headerName: 'Avg Position',
-            width: 150,
+            width: 200,
+            type: 'number'
+        },
+        {
+            field: 'elo',
+            headerName: 'New ELO',
+            width: 200,
             type: 'number'
         },
         {
             field: 'elo_change',
             headerName: 'ELO change',
-            width: 150,
+            flex: 1,
             type: 'number',
             renderCell: (params) => (renderEloCell(params.value))
         },
-        {
-            field: 'elo',
-            headerName: 'New ELO',
-            width: 150,
-            type: 'number'
-        } 
+       
     ]
 
     const [stats, setStats] = useState([]);
@@ -113,6 +114,7 @@ export default function MatchDetail() {
                                 sort: 'desc'
                             }
                         ]}
+                        className={antdClasses.root}
                     />
                     <Link to='/matches' className={classes.buttons} style={{ paddingTop: 20}}>
                         <Button color="primary">

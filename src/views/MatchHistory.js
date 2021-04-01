@@ -8,9 +8,11 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { useRouteMatch } from 'react-router-dom';
 import { authFetch, useAuth } from '../auth';
+import { useStylesAntDesign } from '../assets/jss/antdStyles'
 
 export default function MatchHistory(props) {
     const classes = useStyles();
+    const antdClasses = useStylesAntDesign();
     let logged = useAuth()[0];
     let match = useRouteMatch();
     const columns = [
@@ -104,6 +106,7 @@ export default function MatchHistory(props) {
                         onRowClick={handleClick}
                         onSelectionModelChange={handleSelectionChange}
                         selectionModel={selectedMatches}
+                        className={antdClasses.root}
                     />
                     
                     {
@@ -116,7 +119,7 @@ export default function MatchHistory(props) {
                                 <Button variant='contained' color="primary" onClick={handleAdd}> New Match </Button>
                                 <Button 
                                 variant='contained' 
-                                color="primary" 
+                                color="secondary" 
                                 disabled={btnDisabled} 
                                 onClick={handleDelete}> 
                                     Delete {selectedMatches.length === 0 ? '' : `Selected ${selectedMatches.length}`} 

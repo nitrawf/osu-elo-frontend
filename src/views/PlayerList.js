@@ -4,11 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
+import { useStylesAntDesign } from '../assets/jss/antdStyles'
 
 
 export default function PlayerList() {
     const classes = useStyles();
-
+    const antdClasses = useStylesAntDesign();
     const columns = [
         {
             field: 'id', 
@@ -31,25 +32,25 @@ export default function PlayerList() {
         {
             field: 'total_score',
             headerName: 'Total Score',
-            width: 150,
+            width: 200,
             type: 'number'
         },
         {
             field: 'average_score',
             headerName: 'Average Score',
-            width: 150,
+            width: 200,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Average Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            width: 150
+            width: 200
         },
         {
             field: 'maps_played',
             headerName: 'Maps Played',
-            width: 150,
+            flex: 1,
             type: 'number'
         },
         {
@@ -89,6 +90,7 @@ export default function PlayerList() {
                                 sort: 'desc'
                             }
                         ]}
+                        className={antdClasses.root}
                     />
                 </Paper>
             </main>
