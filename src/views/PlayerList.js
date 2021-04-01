@@ -20,42 +20,42 @@ export default function PlayerList() {
         {
             field: 'name',
             headerName: 'Name',
-            flex: 1
+            width: 200,
         },
         {
             field: 'elo',
             headerName: 'ELO',
-            flex: 1,
+            width: 150,
             type: 'number'
         },
         {
             field: 'total_score',
             headerName: 'Total Score',
-            flex: 1,
+            width: 150,
             type: 'number'
         },
         {
             field: 'average_score',
             headerName: 'Average Score',
-            flex: 1,
+            width: 150,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Average Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            flex: 1
+            width: 150
         },
         {
             field: 'maps_played',
             headerName: 'Maps Played',
-            flex: 1,
+            width: 150,
             type: 'number'
         },
         {
             field: 'matches_played',
             headerName: 'Matches Played',
-            flex: 1,
+            width: 200,
             type: 'number'
         }
     ]

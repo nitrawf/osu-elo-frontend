@@ -42,43 +42,44 @@ export default function MatchDetail() {
         {
             field: 'player_name',
             headerName: 'Player Name',
-            flex: 1
+            width: 200
         },
         {
             field: 'total_score',
             headerName: 'Total Score',
-            flex: 0.75,
+            width: 150,
             type: 'number'
         },
         {
             field: 'average_score',
             headerName: 'Avg Score',
-            flex: 0.75,
+            width: 150,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            flex: 0.5
+            width: 150,
+            type: 'number',
         },
         {
             field: 'average_position',
             headerName: 'Avg Position',
-            flex: 0.5,
+            width: 150,
             type: 'number'
         },
         {
             field: 'elo_change',
             headerName: 'ELO change',
-            flex: 0.5,
+            width: 150,
             type: 'number',
             renderCell: (params) => (renderEloCell(params.value))
         },
         {
             field: 'elo',
             headerName: 'New ELO',
-            flex: 0.75,
+            width: 150,
             type: 'number'
         } 
     ]

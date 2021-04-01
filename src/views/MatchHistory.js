@@ -17,12 +17,12 @@ export default function MatchHistory(props) {
         {
             field: 'id',
             headerName: 'Match Id',
-            flex: 1
+            width: 125
         },
         {
             field: 'name',
             headerName: 'Match Name',
-            flex: 1
+            width: 500
         },
         {
             field: 'start_time',
