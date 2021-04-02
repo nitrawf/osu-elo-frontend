@@ -24,19 +24,20 @@ export default function MatchHistory(props) {
         {
             field: 'name',
             headerName: 'Match Name',
-            width: 500
+            width: 300
+            
         },
         {
             field: 'start_time',
             headerName: 'Start Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-            flex: 1
-        },
-        
+            width: 200
+        },        
         {
             field: 'end_time',
             headerName: 'End Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
+            width: 200,
             flex: 1
         }
     ]
@@ -96,7 +97,6 @@ export default function MatchHistory(props) {
                         checkboxSelection={logged}
                         rows={matches} 
                         columns={columns} 
-                        pageSize={8}
                         sortModel={[
                             {
                                 field: 'start_time',
@@ -107,6 +107,9 @@ export default function MatchHistory(props) {
                         onSelectionModelChange={handleSelectionChange}
                         selectionModel={selectedMatches}
                         className={antdClasses.root}
+                        rowsPerPageOptions={[10, 25, 50]}
+                        pageSize={10}
+                        sortingOrder={['asc', 'desc']}
                     />
                     
                     {

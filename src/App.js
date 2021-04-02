@@ -6,6 +6,7 @@ import MatchDetail from './views/MatchDetail';
 import MatchHistory from './views/MatchHistory';
 import Login from './views/Login';
 import PlayerList from './views/PlayerList';
+import PlayerDetail from './views/PlayerDetail'
 import { useAuth } from './auth'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -39,6 +40,7 @@ export default function App() {
               <PrivateRoute path="/matches/new" component={ AddMatch } />
               <Route path="/matches/:matchId" component={ MatchDetail } />
               <Route path="/matches" component={ MatchHistory } />
+              <Route path="/players/:playerId" component={ PlayerDetail } />
               <Route path="/players" component={ PlayerList } />            
               <Route path="/login" component={ Login } />
             </Switch>

@@ -4395,6 +4395,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chart.js@npm:^2.9.4":
+  version: 2.9.4
+  resolution: "chart.js@npm:2.9.4"
+  dependencies:
+    chartjs-color: ^2.1.0
+    moment: ^2.10.2
+  checksum: 4551932943bc5e42d25ae5632d91878fb89e22937095a2742e23c4d0d0bde405bed6be2cb8480694ba599d6dbb9882c8bce6bac1e4667c820eb24c38416380aa
+  languageName: node
+  linkType: hard
+
+"chartjs-color-string@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "chartjs-color-string@npm:0.6.0"
+  dependencies:
+    color-name: ^1.0.0
+  checksum: 29f7ef3ebf5af1a76034da3148e1f230eee0c0f6df497ab7072ce5fb9c11ff37f5f030d2a2a5f1fd9230895d9aa294b455c5dd0f0e04f38688c69d0ccbdca7dd
+  languageName: node
+  linkType: hard
+
+"chartjs-color@npm:^2.1.0":
+  version: 2.4.1
+  resolution: "chartjs-color@npm:2.4.1"
+  dependencies:
+    chartjs-color-string: ^0.6.0
+    color-convert: ^1.9.3
+  checksum: 850408dfcda057ef0115018d5c83b88f5539cf93bbae8389bd3c5caa405a18e1f1d89b22a26107e1559248206a4ad6243294a820d50f042c6782a1d9d09fb3de
+  languageName: node
+  linkType: hard
+
 "check-types@npm:^11.1.1":
   version: 11.1.2
   resolution: "check-types@npm:11.1.2"
@@ -4590,7 +4619,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.9.0, color-convert@npm:^1.9.1":
+"color-convert@npm:^1.9.0, color-convert@npm:^1.9.1, color-convert@npm:^1.9.3":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -10004,6 +10033,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"moment@npm:^2.10.2":
+  version: 2.29.1
+  resolution: "moment@npm:2.29.1"
+  checksum: 86729013febf7160de5b93da69273dd304d674b0224f9544b3abd09a87671ddd2cdd57598261ce57588910d63747ffd5590965e83c790d8bf327083c0e0a06e0
+  languageName: node
+  linkType: hard
+
 "move-concurrently@npm:^1.0.1":
   version: 1.0.1
   resolution: "move-concurrently@npm:1.0.1"
@@ -10627,10 +10663,12 @@ fsevents@^1.2.7:
     "@testing-library/jest-dom": ^5.11.4
     "@testing-library/react": ^11.1.0
     "@testing-library/user-event": ^12.1.10
+    chart.js: ^2.9.4
     dotenv: ^8.2.0
     eslint-config-react-app: ^6.0.0
     prop-types: ^15.7.2
     react: ^17.0.2
+    react-chartjs-2: ^2.11.1
     react-dom: ^17.0.2
     react-router-dom: ^5.2.0
     react-scripts: 4.0.3
@@ -12237,6 +12275,20 @@ fsevents@^1.2.7:
     regenerator-runtime: ^0.13.7
     whatwg-fetch: ^3.4.1
   checksum: 96b8bb3bdeb5279ebb73622744dcaba75a2f48861e8353052cb758e33db850845b11fa7da87c52663a4e4ee9ed356069f6a1e42151a74f01dc24bbfbbc5ad79a
+  languageName: node
+  linkType: hard
+
+"react-chartjs-2@npm:^2.11.1":
+  version: 2.11.1
+  resolution: "react-chartjs-2@npm:2.11.1"
+  dependencies:
+    lodash: ^4.17.19
+    prop-types: ^15.7.2
+  peerDependencies:
+    chart.js: ^2.3
+    react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 81886664cc61f0cce666267311b6ca730686d22e848d93a2b08d818284e53da6d24a332ac41eae329c57ab03e867af5c8aec65fa2da41fe5226bf7004692827e
   languageName: node
   linkType: hard
 

@@ -5,12 +5,19 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
 import { useStylesAntDesign } from '../assets/jss/antdStyles'
+import { useRouteMatch } from 'react-router-dom';
 
 
-export default function PlayerList() {
+export default function PlayerList(props) {
     const classes = useStyles();
     const antdClasses = useStylesAntDesign();
+    let match = useRouteMatch();
     const columns = [
+        {
+            field: 'player_rank',
+            headerName: 'Rank',
+            width: 100
+        },
         {
             field: 'id', 
             headerName: 'Avatar',
@@ -68,6 +75,10 @@ export default function PlayerList() {
         .then(resp => resp.json())
         .then(data => setStats(data))
     }
+
+    const handleClick = (param, event) => {
+        props.history.push(`${match.url}/${param.id}`)
+    }
     
     useEffect(getStats, [])
 
@@ -91,6 +102,10 @@ export default function PlayerList() {
                             }
                         ]}
                         className={antdClasses.root}
+                        rowsPerPageOptions={[10, 25, 50]}
+                        pageSize={10}
+                        sortingOrder={['asc', 'desc']}
+                        onRowClick={handleClick}
                     />
                 </Paper>
             </main>

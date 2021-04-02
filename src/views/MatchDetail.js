@@ -1,16 +1,15 @@
-import { useStyles } from '../assets/jss/addMatchStyles'
-import { useState, Fragment, useEffect } from 'react'
+import { useStyles } from '../assets/jss/addMatchStyles';
+import { useState, Fragment, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
 import { useStylesAntDesign } from '../assets/jss/antdStyles'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-export default function MatchDetail() {
+export default function MatchDetail(props) {
     const classes = useStyles();
     let { matchId } = useParams();
     const antdClasses = useStylesAntDesign();
@@ -60,19 +59,25 @@ export default function MatchDetail() {
             field: 'average_accuracy',
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            width: 200,
+            width: 150,
             type: 'number',
         },
         {
             field: 'average_position',
             headerName: 'Avg Position',
-            width: 200,
+            width: 150,
             type: 'number'
         },
         {
-            field: 'elo',
+            field: 'old_elo',
+            headerName: 'Old ELO',
+            width: 150,
+            type: 'number'
+        },  
+        {
+            field: 'new_elo',
             headerName: 'New ELO',
-            width: 200,
+            width: 150,
             type: 'number'
         },
         {
@@ -81,8 +86,7 @@ export default function MatchDetail() {
             flex: 1,
             type: 'number',
             renderCell: (params) => (renderEloCell(params.value))
-        },
-       
+        },    
     ]
 
     const [stats, setStats] = useState([]);
@@ -94,6 +98,10 @@ export default function MatchDetail() {
     }
     
     useEffect(getStats, [])
+    
+    const handleClick = (param, event) => {
+        props.history.push(`/players/${param.id}`)
+    }
 
     return(
         <Fragment>
@@ -115,12 +123,11 @@ export default function MatchDetail() {
                             }
                         ]}
                         className={antdClasses.root}
+                        onRowClick={handleClick}
+                        rowsPerPageOptions={[10, 25, 50]}
+                        pageSize={10}
+                        sortingOrder={['asc', 'desc']}
                     />
-                    <Link to='/matches' className={classes.buttons} style={{ paddingTop: 20}}>
-                        <Button color="primary">
-                        Back
-                        </Button>
-                    </Link>
                 </Paper>
             </main>
         </Fragment>
