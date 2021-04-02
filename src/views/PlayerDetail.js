@@ -59,7 +59,7 @@ export default function PlayerDetail(props) {
             <Grid container spacing={3}>
                 <Grid item xl={3} xs={12}>
                     <Box>
-                        <img src={`https://a.ppy.sh/${playerId}`}/>
+                        <img src={`https://a.ppy.sh/${playerStats['id']}`}/>
                     </Box>
                 </Grid>
                 <Grid item xl={9} xs={12}>
