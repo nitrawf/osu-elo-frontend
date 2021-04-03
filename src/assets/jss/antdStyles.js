@@ -25,11 +25,11 @@ const useStylesAntDesign = makeStyles((theme) => ({
       '& .MuiDataGrid-iconSeparator': {
         display: 'none',
       },
-      '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-        borderRight: `1px solid ${
-          theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
-        }`,
-      },
+      // '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+      //   borderRight: `1px solid ${
+      //     theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
+      //   }`,
+      // },
       '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
         borderBottom: `1px solid ${
           theme.palette.type === 'light' ? '#f0f0f0' : '#303030'

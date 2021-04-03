@@ -47,7 +47,7 @@ export default function OsuAppBar() {
   
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Tabs value={tabValue} onChange={handleTabChange} style={{ flex: 1 }}>
             <Tab className={classes.tabLink} key="matches" value={0} label="Matches" component={Link} to="/matches" />

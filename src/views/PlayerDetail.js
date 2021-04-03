@@ -4,6 +4,7 @@ import {
     Grid,
     Paper,
     CssBaseline,
+    Container
   } from '@material-ui/core';
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { Fragment, useEffect, useState } from 'react';
@@ -43,7 +44,7 @@ export default function PlayerDetail(props) {
       let grid = []
       for (let key in playerStats) {
         grid.push(
-        <Grid item sm={4} key={key}>
+        <Grid item xl={2} lg={3} sm={6} key={key}>
           <Stat label={key} value={playerStats[key]}  />
         </Grid>
         )
@@ -57,12 +58,16 @@ export default function PlayerDetail(props) {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Grid container spacing={3}>
-                <Grid item xl={3} xs={12}>
-                    <Box>
-                        <img src={`https://a.ppy.sh/${playerStats['id']}`}/>
-                    </Box>
+                <Grid item xl={2} lg={3} xs={12} alignItems="center">
+                  <img 
+                    src={`https://a.ppy.sh/${playerStats['id']}`} 
+                    style={{margin: 'auto',
+                            maxWidth: '200%',
+                            maxHeight: '200%'}}
+                  />
+
                 </Grid>
-                <Grid item xl={9} xs={12}>
+                <Grid item xl={10} lg={9} xs={12}>
                   <Box
                     sx={{
                         minHeight: '100%',

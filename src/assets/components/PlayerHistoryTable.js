@@ -25,23 +25,25 @@ const columns = [
     {
         field: 'id',
         headerName: 'Match Id',
-        width: 125
+        width: 125,
     },
     {
         field: 'name',
         headerName: 'Match Name',
-        width: 300
+        width: 500,
     },
     {
         field: 'start_time',
-        type: 'dateTime',
+        type: 'date',
         headerName: 'Start Time',
         valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-        width: 200
+        width: 200,
+        flex: 1
     },
     
     {
         field: 'end_time',
+        type: 'dateTime',
         headerName: 'End Time',
         valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
         width: 200,
@@ -51,6 +53,7 @@ const columns = [
         field: 'elo_change',
         header: 'Elo Change',
         width: 200,
+        flex: 1,
         renderCell: (params) => (renderEloCell(params.value))
     }
   ]
@@ -68,7 +71,9 @@ export default function PlayerHistoryTable(props) {
             autoHeight
             rows={matches} 
             columns={columns} 
+            rowsPerPageOptions={[5, 10, 25]}
             pageSize={5}
+            sortingOrder={['asc', 'desc']}
             sortModel={[
                 {
                     field: 'start_time',

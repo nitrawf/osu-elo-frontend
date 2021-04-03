@@ -41,7 +41,7 @@ export default function MatchDetail(props) {
         {
             field: 'player_name',
             headerName: 'Player Name',
-            width: 200
+            width: 200,
         },
         {
             field: 'total_score',
@@ -52,6 +52,7 @@ export default function MatchDetail(props) {
         {
             field: 'average_score',
             headerName: 'Avg Score',
+            valueFormatter: (params) => `${params.value.toFixed(2)}`,
             width: 200,
             type: 'number'
         },
@@ -60,31 +61,35 @@ export default function MatchDetail(props) {
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
             width: 150,
+            flex: 1,
             type: 'number',
         },
         {
             field: 'average_position',
             headerName: 'Avg Position',
             width: 150,
+            flex: 1,
             type: 'number'
         },
         {
             field: 'old_elo',
             headerName: 'Old ELO',
             width: 150,
+            flex: 1,
             type: 'number'
         },  
         {
             field: 'new_elo',
             headerName: 'New ELO',
             width: 150,
+            flex: 1,
             type: 'number'
         },
         {
             field: 'elo_change',
             headerName: 'ELO change',
+            width: 150,
             flex: 1,
-            type: 'number',
             renderCell: (params) => (renderEloCell(params.value))
         },    
     ]

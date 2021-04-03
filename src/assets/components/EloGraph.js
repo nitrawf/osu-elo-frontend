@@ -43,7 +43,9 @@ const EloGraph = (props) => {
                 return label;
             }
         }
-     }
+     },
+     maintainAspectRatio: false,
+     responsive: true
     }
     
     useEffect(() => {
@@ -76,7 +78,7 @@ const EloGraph = (props) => {
 
 
     return (
-      <Line data={data} options={options} />
+      <Line data={data} options={options} height={400}/>
     )
     
 }

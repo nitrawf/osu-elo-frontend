@@ -24,14 +24,15 @@ export default function MatchHistory(props) {
         {
             field: 'name',
             headerName: 'Match Name',
-            width: 300
+            width: 500
             
         },
         {
             field: 'start_time',
             headerName: 'Start Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-            width: 200
+            width: 200,
+            flex: 1
         },        
         {
             field: 'end_time',
@@ -115,9 +116,6 @@ export default function MatchHistory(props) {
                     {
                         logged &&
                         <Fragment>
-                        {/* <Box style={{ paddingTop: 20 }}>
-                            
-                        </Box> */}
                             <Box style={{ justifyContent: 'space-between', paddingTop: 20, display: 'flex' }}>
                                 <Button variant='contained' color="primary" onClick={handleAdd}> New Match </Button>
                                 <Button 

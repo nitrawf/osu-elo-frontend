@@ -16,7 +16,8 @@ export default function PlayerList(props) {
         {
             field: 'player_rank',
             headerName: 'Rank',
-            width: 100
+            width: 100,
+            valueFormatter: (params) => `# ${params.value}`,
         },
         {
             field: 'id', 
@@ -28,43 +29,50 @@ export default function PlayerList(props) {
         {
             field: 'name',
             headerName: 'Name',
-            width: 200,
+            width: 250,
         },
         {
             field: 'elo',
             headerName: 'ELO',
-            width: 150,
+            width: 200,
             type: 'number'
         },
         {
             field: 'total_score',
             headerName: 'Total Score',
             width: 200,
+            flex: 1,
             type: 'number'
         },
         {
             field: 'average_score',
             headerName: 'Average Score',
+            valueFormatter: (params) => `${params.value.toFixed(2)}`,
             width: 200,
+            flex: 1,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Average Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            width: 200
+            width: 200,
+            flex: 1,
+            type: 'number'
         },
         {
             field: 'maps_played',
             headerName: 'Maps Played',
             flex: 1,
+            width: 200,
             type: 'number'
         },
         {
             field: 'matches_played',
             headerName: 'Matches Played',
             width: 200,
-            type: 'number'
+            flex: 1,
+            type: 'number',
         }
     ]
 
@@ -92,7 +100,7 @@ export default function PlayerList(props) {
                     </Typography>
                     <DataGrid 
                         autoHeight 
-                        rows={stats} 
+                        rows={stats}
                         columns={columns} 
                         getRowId={(row)=> row.id}
                         sortModel={[
@@ -103,7 +111,7 @@ export default function PlayerList(props) {
                         ]}
                         className={antdClasses.root}
                         rowsPerPageOptions={[10, 25, 50]}
-                        pageSize={10}
+                        pageSize={25}
                         sortingOrder={['asc', 'desc']}
                         onRowClick={handleClick}
                     />
