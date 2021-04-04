@@ -4,16 +4,12 @@ import {
     Grid,
     Paper,
     CssBaseline,
-    Container
   } from '@material-ui/core';
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { Fragment, useEffect, useState } from 'react';
 import EloGraph from '../assets/components/EloGraph'
 import PlayerHistoryTable from '../assets/components/PlayerHistoryTable'
 import { useParams } from 'react-router-dom';
-
-
-
 
 export default function PlayerDetail(props) {
     const classes = useStyles();
@@ -38,7 +34,7 @@ export default function PlayerDetail(props) {
       getPlayerSummary();
       getPlayerHistory();
 
-    }, [])
+    }, [playerId])
 
     useEffect(() => {
       let grid = []
@@ -57,27 +53,19 @@ export default function PlayerDetail(props) {
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            <Grid container spacing={3}>
-                <Grid item xl={2} lg={3} xs={12} alignItems="center">
+            <Grid container spacing={3} alignItems="center">
+                <Grid item xl={2} lg={3} md={4} sm={5} xs={12}>
                   <img 
                     src={`https://a.ppy.sh/${playerStats['id']}`} 
-                    style={{margin: 'auto',
-                            maxWidth: '200%',
-                            maxHeight: '200%'}}
+                    style={{margin: 'auto', width: '100%'}}
+                    alt="Unavailable"
                   />
 
                 </Grid>
-                <Grid item xl={10} lg={9} xs={12}>
-                  <Box
-                    sx={{
-                        minHeight: '100%',
-                        py: 3
-                    }}
-                    >
-                    <Grid container spacing={3}>
-                      { gridItems } 
-                    </Grid>
-                  </Box>
+                <Grid item xl={10} lg={9} md={8} sm={7} xs={12}>
+                  <Grid container spacing={3}>
+                    { gridItems } 
+                  </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <Box style= {{ paddingTop: 20 }}>

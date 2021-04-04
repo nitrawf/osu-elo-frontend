@@ -33,7 +33,7 @@ export default function AddMatch(props) {
 
   const [activeStep, setActiveStep] = useState(0)
   const [matchId, setMatchId] = useState('')
-  const [defaultElo, setDefaultElo] = useState(1300)
+  const [defaultElo, setDefaultElo] = useState(1000)
   const [playerList, setPlayerList] = useState([])
   const [beatmapList, setBeatmapList] = useState([])
   const [filteredPlayerList, setFilteredPlayerList] = useState([])

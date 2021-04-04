@@ -20,7 +20,6 @@ const theme = createMuiTheme({
 export default function App() {
     const PrivateRoute = ({ component: Component, ...rest }) => {
       const [logged] = useAuth();
-    
       return <Route {...rest} render={(props) => (
         logged
           ? <Component {...props} />
@@ -34,8 +33,6 @@ export default function App() {
           <Router>
             <OsuAppBar />
             <Switch>
-
-              {/* <Route exact path="/" component={ AddMatch } /> */}
               <Redirect exact from="/" to="/matches" />
               <PrivateRoute path="/matches/new" component={ AddMatch } />
               <Route path="/matches/:matchId" component={ MatchDetail } />

@@ -95,7 +95,7 @@ export default function PlayerList(props) {
             <CssBaseline />
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center"  style={{ paddingBottom: 20 }}>
+                    <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
                     Player Leaderboards
                     </Typography>
                     <DataGrid 
