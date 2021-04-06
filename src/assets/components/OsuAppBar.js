@@ -55,7 +55,7 @@ export default function OsuAppBar() {
             <Tab className={classes.tabLink} key="matches" value={0} label="Matches" component={Link} to="/matches" />
             <Tab className={classes.tabLink} key="players" value={1} label="Players" component={Link} to="/players" />        
           </Tabs>
-          <Box style={{ paddingRight: 15 }}>
+          <Box style={{ paddingRight: 15 }} width="20%">
             <PlayerSearchBar/>
           </Box>
           {!logged ?
@@ -73,10 +73,8 @@ export default function OsuAppBar() {
             <IconButton key="logout"onClick={() => {logout();logged=false}}>
               <ExitToAppIcon />
             </IconButton>
-          </Fragment>
-          
+          </Fragment>         
           }
-
         </Toolbar>
       </AppBar>
     </div>
