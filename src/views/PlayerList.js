@@ -1,35 +1,47 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
-import Paper from '@material-ui/core/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { Paper, Avatar, Typography } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import Typography from '@material-ui/core/Typography';
 import { useStylesAntDesign } from '../assets/jss/antdStyles'
 import { useRouteMatch } from 'react-router-dom';
+
 
 
 export default function PlayerList(props) {
     const classes = useStyles();
     const antdClasses = useStylesAntDesign();
     let match = useRouteMatch();
+    const getName = (params) => {
+        let id = params.getValue('id')
+        let name = params.getValue('name')
+        return {
+            id: id,
+            name: name
+        }
+    }
+
     const columns = [
         {
             field: 'player_rank',
             headerName: 'Rank',
-            width: 100,
+            width: 125,
             valueFormatter: (params) => `# ${params.value}`,
         },
         {
-            field: 'id', 
-            headerName: 'Avatar',
-            renderCell: (params) => (
-                <img src={`https://a.ppy.sh/${params.value}`} alt='Avatar not available' height="52" width="52"/>
-            )
-        },
-        {
-            field: 'name',
+            field: 'playername',
             headerName: 'Name',
-            width: 250,
+            width: 353,
+            valueGetter: getName,
+            renderCell: (params) => (
+                <>
+                    <Avatar src={`https://a.ppy.sh/${params.value.id}`} alt='Avatar not available'/> 
+                    <Typography style={{paddingLeft: 10}}>
+                        {params.value.name}
+                    </Typography>
+                </>
+            ),
+            sortComparator: (v1, v2, cellParams1, cellParams2) =>
+                getName(cellParams1).name.localeCompare(getName(cellParams2).name),
         },
         {
             field: 'elo',
@@ -41,7 +53,6 @@ export default function PlayerList(props) {
             field: 'total_score',
             headerName: 'Total Score',
             width: 200,
-            flex: 1,
             type: 'number'
         },
         {
@@ -49,21 +60,18 @@ export default function PlayerList(props) {
             headerName: 'Average Score',
             valueFormatter: (params) => `${params.value.toFixed(2)}`,
             width: 200,
-            flex: 1,
             type: 'number'
         },
         {
             field: 'average_accuracy',
-            headerName: 'Average Accuracy',
-            valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
+            headerName: 'Accuracy',
+            valueFormatter: (params) => `${(params.value * 100).toFixed(2)} %`,
             width: 200,
-            flex: 1,
             type: 'number'
         },
         {
             field: 'maps_played',
             headerName: 'Maps Played',
-            flex: 1,
             width: 200,
             type: 'number'
         },
@@ -71,8 +79,7 @@ export default function PlayerList(props) {
             field: 'matches_played',
             headerName: 'Matches Played',
             width: 200,
-            flex: 1,
-            type: 'number',
+            type: 'number'
         }
     ]
 
@@ -81,7 +88,9 @@ export default function PlayerList(props) {
     const getStats = () => {
         fetch(`${process.env.REACT_APP_API_URL}/api/player/get-all`)
         .then(resp => resp.json())
-        .then(data => setStats(data))
+        .then(data => {
+            console.log(data)
+            setStats(data)})
     }
 
     const handleClick = (param, event) => {
@@ -92,11 +101,10 @@ export default function PlayerList(props) {
 
     return(
         <Fragment>
-            <CssBaseline />
             <main className={classes.layout}>
-                <Paper className={classes.paper}>
+                <Paper className={classes.paper} minWidth={1920}>
                     <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
-                    Player Leaderboards
+                        Player Leaderboards
                     </Typography>
                     <DataGrid 
                         autoHeight 
@@ -115,7 +123,7 @@ export default function PlayerList(props) {
                         sortingOrder={['asc', 'desc']}
                         onRowClick={handleClick}
                     />
-                </Paper>
+                </Paper>           
             </main>
         </Fragment>
     )

@@ -25,11 +25,11 @@ const useStylesAntDesign = makeStyles((theme) => ({
       '& .MuiDataGrid-iconSeparator': {
         display: 'none',
       },
-      // '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-      //   borderRight: `1px solid ${
-      //     theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
-      //   }`,
-      // },
+      '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
+        borderLeft: `1px solid ${
+          theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
+        }`,
+      },
       '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
         borderBottom: `1px solid ${
           theme.palette.type === 'light' ? '#f0f0f0' : '#303030'
@@ -40,6 +40,8 @@ const useStylesAntDesign = makeStyles((theme) => ({
           theme.palette.type === 'light'
             ? 'rgba(0,0,0,.85)'
             : 'rgba(255,255,255,0.65)',
+        textAlign: 'center',
+        justifyContent: 'center'
       },
       '& .MuiPaginationItem-root': {
         borderRadius: 0,
@@ -82,7 +84,21 @@ const useStylesAntDesign = makeStyles((theme) => ({
         transform: 'none',
         top: '39%',
         border: 0,
-      }
+      },
+      '& .MuiDataGrid-colCellRight .MuiDataGrid-colCellTitleContainer' : {
+        justifyContent: 'center',
+        paddingRight: 26,
+        paddingLeft: 0
+      },
+      '& .MuiDataGrid-colCellTitleContainer' : {
+        justifyContent: 'center',
+        paddingLeft: 26
+      },
+      '& .MuiDataGrid-colCellCenter .MuiDataGrid-colCellTitleContainer' : {
+        paddingLeft: 0,
+        paddingRight: 0
+      },
+     
     },
   }));
 

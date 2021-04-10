@@ -1,7 +1,6 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -19,27 +18,24 @@ export default function MatchHistory(props) {
         {
             field: 'id',
             headerName: 'Match Id',
-            width: 125
+            width: 200
         },
         {
             field: 'name',
             headerName: 'Match Name',
-            width: 500
-            
+            width: 678         
         },
         {
             field: 'start_time',
             headerName: 'Start Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-            width: 200,
-            flex: 1
+            width: 400,
         },        
         {
             field: 'end_time',
             headerName: 'End Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-            width: 200,
-            flex: 1
+            width: 400,
         }
     ]
 
@@ -87,7 +83,6 @@ export default function MatchHistory(props) {
     const [btnDisabled, setBtnDisabled] = useState(true)
     return(
         <Fragment>
-            <CssBaseline />
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center" style={{ paddingBottom: 20 }}>

@@ -1,24 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    appBar: {
-      position: 'relative',
-    },
     layout: {
-      width: 'auto',
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-        width: "90%",
-        marginLeft: 'auto',
-        marginRight: 'auto',
+      width: '90%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      [theme.breakpoints.down('md')]: {
+        width: '100%'
       },
+      [theme.breakpoints.up('xl')]: {
+        width: 1920 * 0.9
+      }
     },
     paper: {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(12),
       marginBottom: theme.spacing(3),
       padding: theme.spacing(2),
-      [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      [theme.breakpoints.up('md')]: {
         marginTop: theme.spacing(12),
         marginBottom: theme.spacing(6),
         padding: theme.spacing(3),

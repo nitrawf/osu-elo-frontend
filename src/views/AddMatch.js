@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
-import { useStyles } from '../assets/jss/addMatchStyles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { useState } from 'react';
+import { Paper, Stepper, Step, StepLabel, Button, Typography, Box } from '@material-ui/core';
 import MatchIdForm from '../assets/components/MatchIdForm'
 import PlayerForm from '../assets/components/PlayerForm';
 import BeatmapForm from '../assets/components/BeatmapForm';
-import Box from '@material-ui/core/Box';
+import { useStyles } from '../assets/jss/addMatchStyles';
 import { authFetch } from '../auth'
 
 export default function AddMatch(props) {
@@ -125,8 +118,7 @@ export default function AddMatch(props) {
   };
 
   return (
-    <React.Fragment>
-      <CssBaseline />
+    <>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -143,18 +135,18 @@ export default function AddMatch(props) {
             errorMsg !== '' &&
             <Typography color='error' align='right' variant='overline'>{errorMsg}</Typography>
           }
-          <React.Fragment>
+          <>
             {activeStep === steps.length ? (
-              <React.Fragment>
+              <>
                 <Typography variant="h5" gutterBottom>
                   Match added.
                 </Typography>
                 <Typography variant="subtitle1">
                   Go to match history tab to view the match.
                 </Typography>
-              </React.Fragment>
+              </>
             ) : (
-              <React.Fragment>
+              <>
                 {getStepContent(activeStep)}
                 <Box style={{ justifyContent: 'space-between', paddingTop: 20, display: 'flex' }}>
                   
@@ -170,11 +162,11 @@ export default function AddMatch(props) {
                     {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                   </Button>
                 </Box>
-              </React.Fragment>
+              </>
             )}
-          </React.Fragment>
+          </>
         </Paper>
       </main>
-    </React.Fragment>
+    </>
   );
 }

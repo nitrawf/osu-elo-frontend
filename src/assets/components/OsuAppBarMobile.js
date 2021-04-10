@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -17,6 +16,9 @@ import { Link } from 'react-router-dom';
 import PlayerSearchBar from './PlayerSearchBar'
 import { useAuth, logout } from "../../auth"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Box from '@material-ui/core/Box';
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -92,7 +94,6 @@ export default function OsuAppBarMobile() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -109,7 +110,9 @@ export default function OsuAppBarMobile() {
           >
             <MenuIcon />
           </IconButton>
-          <PlayerSearchBar />
+          <Box style={{ paddingRight: 15, paddingTop: 10, paddingBottom: 5 }} width="100%">
+              <PlayerSearchBar/>
+          </Box>
           {!logged ?
             <IconButton component={Link} key="login" to="/login">
               <Typography variant="button" color="inherit" className={classes.title}>

@@ -1,18 +1,25 @@
-import { useStyles } from '../assets/jss/addMatchStyles';
 import { useState, Fragment, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { Paper, CssBaseline, Typography, Avatar}  from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import Typography from '@material-ui/core/Typography';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
-import { useStylesAntDesign } from '../assets/jss/antdStyles'
+import { useStylesAntDesign } from '../assets/jss/antdStyles';
+import { useStyles } from '../assets/jss/addMatchStyles';
 import { useParams } from 'react-router-dom';
+
 
 export default function MatchDetail(props) {
     const classes = useStyles();
     let { matchId } = useParams();
     const antdClasses = useStylesAntDesign();
+    const getName = (params) => {
+        let id = params.getValue('id')
+        let name = params.getValue('player_name')
+        return {
+            id: id,
+            name: name
+        }
+    }
     const renderEloCell = (value) => {
         if (value > 0) {
             return (
@@ -32,16 +39,20 @@ export default function MatchDetail(props) {
 
     const columns = [
         {
-            field: 'player_id', 
-            headerName: 'Avatar',
+            field: 'playername',
+            headerName: 'Name',
+            width: 428,
+            valueGetter: getName,
             renderCell: (params) => (
-                <img src={`https://a.ppy.sh/${params.value}`} alt='Avatar not available' height="52" width="52"/>
-            )
-        },
-        {
-            field: 'player_name',
-            headerName: 'Player Name',
-            width: 200,
+                <>
+                    <Avatar src={`https://a.ppy.sh/${params.value.id}`} alt='Avatar not available'/> 
+                    <Typography style={{paddingLeft: 10}}>
+                        {params.value.name}
+                    </Typography>
+                </>
+            ),
+            sortComparator: (v1, v2, cellParams1, cellParams2) =>
+                getName(cellParams1).name.localeCompare(getName(cellParams2).name),
         },
         {
             field: 'total_score',
@@ -52,7 +63,7 @@ export default function MatchDetail(props) {
         {
             field: 'average_score',
             headerName: 'Avg Score',
-            valueFormatter: (params) => `${params.value.toFixed(2)}`,
+            valueFormatter: (params) => Math.round(params.value).toLocaleString(),
             width: 200,
             type: 'number'
         },
@@ -60,49 +71,43 @@ export default function MatchDetail(props) {
             field: 'average_accuracy',
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            width: 150,
-            flex: 1,
+            width: 200,
             type: 'number',
         },
         {
             field: 'average_position',
             headerName: 'Avg Position',
-            width: 150,
-            flex: 1,
+            width: 200,
             type: 'number'
         },
         {
             field: 'old_elo',
             headerName: 'Old ELO',
             width: 150,
-            flex: 1,
             type: 'number'
         },  
         {
             field: 'new_elo',
             headerName: 'New ELO',
             width: 150,
-            flex: 1,
             type: 'number'
         },
         {
             field: 'elo_change',
-            headerName: 'ELO change',
+            headerName: 'Change',
             width: 150,
-            flex: 1,
+            type: 'number',
             renderCell: (params) => (renderEloCell(params.value))
         },    
     ]
 
     const [stats, setStats] = useState([]);
-
-    const getStats = () => {
+    
+    useEffect( () => {
         fetch(`${process.env.REACT_APP_API_URL}/api/match/get-summary/${matchId}`)
         .then(resp => resp.json())
         .then(data => setStats(data))
-    }
-    
-    useEffect(getStats, [])
+    }, [matchId])
     
     const handleClick = (param, event) => {
         props.history.push(`/players/${param.id}`)

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import AddMatch from "./views/AddMatch";
 import OsuAppBar from './assets/components/OsuAppBar'
@@ -11,6 +11,9 @@ import PlayerDetail from './views/PlayerDetail'
 import { useAuth } from './auth'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+// Datagrid area: 1678
 
 const theme = createMuiTheme({
   palette: {
@@ -46,6 +49,7 @@ export default function App() {
 
   return(
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Fragment> 
         <Router>
           { mobileView ? <OsuAppBarMobile /> : <OsuAppBar /> }

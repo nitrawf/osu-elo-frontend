@@ -25,20 +25,19 @@ const columns = [
     {
         field: 'id',
         headerName: 'Match Id',
-        width: 125,
+        width: 200,
     },
     {
         field: 'name',
         headerName: 'Match Name',
-        width: 500,
+        width: 578,
     },
     {
         field: 'start_time',
         type: 'date',
         headerName: 'Start Time',
         valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-        width: 200,
-        flex: 1
+        width: 300
     },
     
     {
@@ -46,14 +45,12 @@ const columns = [
         type: 'dateTime',
         headerName: 'End Time',
         valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-        width: 200,
-        flex: 1
+        width: 300
     },
     {
         field: 'elo_change',
         header: 'Elo Change',
-        width: 200,
-        flex: 1,
+        width: 300,
         renderCell: (params) => (renderEloCell(params.value))
     }
   ]
