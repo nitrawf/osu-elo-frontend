@@ -11,8 +11,8 @@ const EloGraph = (props) => {
             unit: 'month'
           },
           gridLines: {
-            color: 'rgba(255, 255, 255, 0.5)',
-            zeroLineColor: 'rgba(255, 255, 255, 0.9)'
+            color: '#303030',
+            zeroLineColor: '#303030',
           },
           ticks: {
             fontColor: 'rgba(255, 255, 255, 0.5)'
@@ -21,8 +21,8 @@ const EloGraph = (props) => {
         yAxes: [{
           type: 'linear',
           gridLines: {
-            color: 'rgba(255, 255, 255, 0.5)',
-            zeroLineColor: 'rgba(255, 255, 255, 0.9)'
+            color: '#303030',
+            zeroLineColor: '#303030',
           },
           ticks: {
             fontColor: 'rgba(255, 255, 255, 0.5)'
@@ -36,7 +36,7 @@ const EloGraph = (props) => {
                 if (label) {
                     label += ':';
                 }
-                label += Math.round(tooltipItem.value * 100) / 100;
+                label += tooltipItem.value.toLocaleString();
                 label += ` |  Elo Change: ${data.datasets[tooltipItem.datasetIndex].eloChange[tooltipItem.index]}`
                 label += ` | Match Name: ${data.datasets[tooltipItem.datasetIndex].matchNames[tooltipItem.index]}`
                 
@@ -45,7 +45,7 @@ const EloGraph = (props) => {
         }
      },
      maintainAspectRatio: false,
-     responsive: true
+     responsive: true,
     }
     
     useEffect(() => {

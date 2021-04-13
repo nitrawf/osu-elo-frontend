@@ -10,6 +10,7 @@ import { useStyles } from '../assets/jss/addMatchStyles'
 
 function formatData(data) {
   let tableData = [];
+  tableData.push({name : 'ELO', value : data['elo'].toLocaleString()});
   tableData.push({name : 'Accuracy', value : (data['average_accuracy'] * 100).toFixed(2) + ' %'});
   tableData.push({name : 'Average Score', value : data['average_score'].toLocaleString()});
   tableData.push({name : 'Total Score', value : data['total_score'].toLocaleString()});
@@ -55,13 +56,12 @@ export default function PlayerDetail(props) {
                       alt="Unavailable"
                     />
                   </Grid>
-                  
                   <Grid item sm={5} xs={12} container spacing={2} direction="column" justify="flex-end" alignItems="stretch">
                       <Grid item>
-                        <Stat label="Rank" value={playerStats['player_rank']}/>
+                        <Stat label="Name" value={playerStats['name']} />
                       </Grid>
                       <Grid item>
-                        <Stat label="ELO" value={playerStats['elo']} />
+                        <Stat label="Rank" value={playerStats['player_rank']}/>
                       </Grid>
                   </Grid>
                 </Grid>
