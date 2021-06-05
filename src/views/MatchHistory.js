@@ -44,7 +44,7 @@ export default function MatchHistory(props) {
     const [update, setUpdate] = useState(0);
 
     const getMatches = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/match/get-all`)
+        fetch(`/api/match/get-all`)
         .then(resp => resp.json())
         .then(data => setMatches(data))
     }
@@ -70,7 +70,7 @@ export default function MatchHistory(props) {
     }
     
     const handleDelete = () => {
-        authFetch(`${process.env.REACT_APP_API_URL}/api/match/delete/`, {
+        authFetch(`/api/match/delete/`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({'matchIds' : selectedMatches})

@@ -28,14 +28,14 @@ export default function PlayerDetail(props) {
     const [playerData, setPlayerData] = useState([])
     
     useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/api/player/${playerId}/summary`)
+      fetch(`/api/player/${playerId}/summary`)
       .then(resp => resp.json())
       .then(data => {
         setPlayerStats(data);
         setPlayerData(formatData(data));
       })
       
-      fetch(`${process.env.REACT_APP_API_URL}/api/player/${playerId}/elo-history`)
+      fetch(`/api/player/${playerId}/elo-history`)
       .then(resp => resp.json())
       .then(data => setPlayerHistory(data))
     }, [playerId])

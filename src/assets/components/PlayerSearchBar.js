@@ -13,7 +13,7 @@ export default function PlayerSearchBar() {
   
   const getPlayers = (event, query) => {
     setLoading (true);
-    fetch(`${process.env.REACT_APP_API_URL}/api/player/search/${query}`)
+    fetch(`/api/player/search/${query}`)
       .then(resp => resp.json())
       .then(data => {
           setOptions(data);

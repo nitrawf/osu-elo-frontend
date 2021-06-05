@@ -86,7 +86,7 @@ export default function PlayerList(props) {
     const [stats, setStats] = useState([]);
 
     const getStats = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/player/get-all`)
+        fetch(`/api/player/get-all`)
         .then(resp => resp.json())
         .then(data => {
             console.log(data)

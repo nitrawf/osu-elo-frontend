@@ -51,7 +51,7 @@ export default function AddMatch(props) {
 
   const handleNext = () => {
     if (activeStep === 0) {
-      authFetch(`${process.env.REACT_APP_API_URL}/api/match/new/get-details/${matchId}`)
+      authFetch(`/api/match/new/get-details/${matchId}`)
       .then(resp => {
         if (resp.status === 401){
           return {'error' : 'You need to authenticate to continue.'}
@@ -86,7 +86,7 @@ export default function AddMatch(props) {
       }
       else {
         setErrorMsg('')
-        authFetch(`${process.env.REACT_APP_API_URL}/api/match/new/process-match`, {
+        authFetch(`/api/match/new/process-match`, {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({matchId: matchId, filteredPlayerList : filteredPlayerList, filteredBeatmapList: filteredBeatmapList, defaultElo: defaultElo})

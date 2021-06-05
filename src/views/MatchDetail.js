@@ -104,7 +104,7 @@ export default function MatchDetail(props) {
     const [stats, setStats] = useState([]);
     
     useEffect( () => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/match/get-summary/${matchId}`)
+        fetch(`/api/match/get-summary/${matchId}`)
         .then(resp => resp.json())
         .then(data => setStats(data))
     }, [matchId])
