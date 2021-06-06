@@ -29,9 +29,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
         script: |
-          ls -la
           cd /home/azureuser/osu-elo-frontend
-          ls -la
           yarn install
           yarn build
           sudo systemctl reload nginx

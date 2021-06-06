@@ -12,6 +12,7 @@ import { useAuth } from './auth'
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import AddAbandonedMatch from './views/AddAbandonedMatch';
 
 // Datagrid area: 1678
 
@@ -56,6 +57,7 @@ export default function App() {
           <Switch>
             <Redirect exact from="/" to="/matches" />
             <PrivateRoute path="/matches/new" component={ AddMatch } />
+            <PrivateRoute path="/matches/abandoned" component={ AddAbandonedMatch } />
             <Route path="/matches/:matchId" component={ MatchDetail } />
             <Route path="/matches" component={ MatchHistory } />
             <Route path="/players/:playerId" component={ PlayerDetail } />

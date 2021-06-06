@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { useRouteMatch } from 'react-router-dom';
-import { authFetch, useAuth } from '../auth';
+import { useAuth } from '../auth';
 import { useStylesAntDesign } from '../assets/jss/antdStyles'
 
 export default function MatchHistory(props) {
@@ -40,8 +40,6 @@ export default function MatchHistory(props) {
     ]
 
     const [matches, setMatches] = useState([]);
-    const [selectedMatches, setSelectedMatches] = useState([]);
-    const [update, setUpdate] = useState(0);
 
     const getMatches = () => {
         fetch(`/api/match/get-all`)
@@ -49,7 +47,7 @@ export default function MatchHistory(props) {
         .then(data => setMatches(data))
     }
     
-    useEffect(() => getMatches(), [update])
+    useEffect(() => getMatches(), [])
 
     const handleClick = (param, event) => {
         props.history.push(`${match.url}/${param.id}`);
@@ -59,28 +57,11 @@ export default function MatchHistory(props) {
         props.history.push(`${match.url}/new`)
     }
 
-    const handleSelectionChange = (newSelection) => {
-        setSelectedMatches(newSelection.selectionModel);
-        if(newSelection.selectionModel.length > 0) {
-            setBtnDisabled(false);
-        }
-        else {
-            setBtnDisabled(true);
-        }
+    const handleAbandonedAdd = (e) => {
+        props.history.push(`${match.url}/abandoned`)
     }
-    
-    const handleDelete = () => {
-        authFetch(`/api/match/delete/`, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({'matchIds' : selectedMatches})
-        })
-        .then(resp => resp.json())
-        .then(data => alert(JSON.stringify(data)))
-        .then(setTimeout(() => setUpdate(update + 1), 2000))
-    }
-    
-    const [btnDisabled, setBtnDisabled] = useState(true)
+
+
     return(
         <Fragment>
             <main className={classes.layout}>
@@ -90,7 +71,6 @@ export default function MatchHistory(props) {
                     </Typography>
                     <DataGrid 
                         autoHeight
-                        checkboxSelection={logged}
                         rows={matches} 
                         columns={columns} 
                         sortModel={[
@@ -100,8 +80,6 @@ export default function MatchHistory(props) {
                             }
                         ]}
                         onRowClick={handleClick}
-                        onSelectionModelChange={handleSelectionChange}
-                        selectionModel={selectedMatches}
                         className={antdClasses.root}
                         rowsPerPageOptions={[10, 25, 50]}
                         pageSize={10}
@@ -115,10 +93,10 @@ export default function MatchHistory(props) {
                                 <Button variant='contained' color="primary" onClick={handleAdd}> New Match </Button>
                                 <Button 
                                 variant='contained' 
-                                color="secondary" 
-                                disabled={btnDisabled} 
-                                onClick={handleDelete}> 
-                                    Delete {selectedMatches.length === 0 ? '' : `Selected ${selectedMatches.length}`} 
+                                color="secondary"
+                                onClick={handleAbandonedAdd}
+                                > 
+                                    New Abandoned Match
                                 </Button>
                             </Box>
                         </Fragment>

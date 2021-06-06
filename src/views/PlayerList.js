@@ -89,7 +89,6 @@ export default function PlayerList(props) {
         fetch(`/api/player/get-all`)
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
             setStats(data)})
     }
 
