@@ -13,6 +13,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AddAbandonedMatch from './views/AddAbandonedMatch';
+import Simulation from './views/Simulation';
 
 // Datagrid area: 1678
 
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/players/:playerId" component={ PlayerDetail } />
             <Route path="/players" component={ PlayerList } />            
             <Route path="/login" component={ Login } />
+            <Route path="/simulation" component={ Simulation } />
           </Switch>
         </Router>
       </Fragment>

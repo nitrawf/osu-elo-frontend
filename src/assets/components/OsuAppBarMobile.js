@@ -146,6 +146,7 @@ export default function OsuAppBarMobile() {
         <List>
           <ListItem button component={Link} to="/matches"><Typography variant="button" noWrap>Matches</Typography></ListItem>
           <ListItem button component={Link} to="/players"><Typography variant="button" noWrap>Players</Typography></ListItem>
+          <ListItem button component={Link} to="/simulation"><Typography variant="button" noWrap>ELO Simulation</Typography></ListItem>
           <ListItem></ListItem>
         </List>
       </Drawer>

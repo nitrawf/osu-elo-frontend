@@ -56,7 +56,8 @@ export default function OsuAppBar() {
             <Grid item sm={3}>
               <Tabs value={tabValue} onChange={handleTabChange} style={{ flex: 1 }}>
                 <Tab className={classes.tabLink} key="matches" value={0} label="Matches" component={Link} to="/matches" />
-                <Tab className={classes.tabLink} key="players" value={1} label="Players" component={Link} to="/players" />        
+                <Tab className={classes.tabLink} key="players" value={1} label="Players" component={Link} to="/players" />
+                <Tab className={classes.tabLink} key="simulation" value={2} label="Elo Simulation" component={Link} to="/simulation" />       
               </Tabs>
             </Grid>
             <Grid item sm={6}>
