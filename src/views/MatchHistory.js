@@ -7,11 +7,9 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { useRouteMatch } from 'react-router-dom';
 import { useAuth } from '../auth';
-import { useStylesAntDesign } from '../assets/jss/antdStyles'
 
 export default function MatchHistory(props) {
     const classes = useStyles();
-    const antdClasses = useStylesAntDesign();
     let logged = useAuth()[0];
     let match = useRouteMatch();
     const columns = [
@@ -80,7 +78,6 @@ export default function MatchHistory(props) {
                             }
                         ]}
                         onRowClick={handleClick}
-                        className={antdClasses.root}
                         rowsPerPageOptions={[10, 25, 50]}
                         pageSize={10}
                         sortingOrder={['asc', 'desc']}

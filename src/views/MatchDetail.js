@@ -1,6 +1,6 @@
 import { useState, Fragment, useEffect } from 'react';
-import { Paper, CssBaseline, Typography, Avatar}  from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
+import { Paper, CssBaseline, Typography, Avatar, Divider}  from '@material-ui/core';
+import { DataGrid } from '@mui/x-data-grid';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
 import { useStylesAntDesign } from '../assets/jss/antdStyles';
@@ -13,8 +13,9 @@ export default function MatchDetail(props) {
     let { matchId } = useParams();
     const antdClasses = useStylesAntDesign();
     const getName = (params) => {
-        let id = params.getValue('id')
-        let name = params.getValue('player_name')
+        console.log(params)
+        let id = params.row.player_id
+        let name = params.row.player_name
         return {
             id: id,
             name: name
@@ -38,10 +39,11 @@ export default function MatchDetail(props) {
     }
 
     const columns = [
+        // Add match rank
         {
             field: 'playername',
             headerName: 'Name',
-            width: 428,
+            width: 300,
             valueGetter: getName,
             renderCell: (params) => (
                 <>
@@ -57,45 +59,52 @@ export default function MatchDetail(props) {
         {
             field: 'total_score',
             headerName: 'Total Score',
-            width: 200,
+            minWidth: 200,
+            flex: 1,
             type: 'number'
         },
         {
             field: 'average_score',
-            headerName: 'Avg Score',
-            valueFormatter: (params) => Math.round(params.value).toLocaleString(),
-            width: 200,
+            headerName: 'Average Score',
+            valueFormatter: (params) => `${params.value.toLocaleString()}`,
+            minWidth: 200,
+            flex: 1,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Accuracy',
-            valueFormatter: (params) => `${(params.value * 100).toFixed(2)}%`,
-            width: 200,
-            type: 'number',
+            valueFormatter: (params) => `${(params.value * 100).toFixed(2)} %`,
+            minWidth: 125,
+            flex: 1,
+            type: 'number'
         },
         {
             field: 'average_position',
             headerName: 'Avg Position',
-            width: 200,
+            minWidth: 125,
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'old_elo',
-            headerName: 'Old ELO',
-            width: 150,
+            headerName: 'Old Elo',
+            minWidth: 125,
+            flex: 0.75,
             type: 'number'
         },  
         {
             field: 'new_elo',
-            headerName: 'New ELO',
-            width: 150,
+            headerName: 'New Elo',
+            minWidth: 125,
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'elo_change',
             headerName: 'Change',
-            width: 150,
+            minWidth: 125,
+            flex: 0.75,
             type: 'number',
             renderCell: (params) => (renderEloCell(params.value))
         },    
@@ -121,6 +130,7 @@ export default function MatchDetail(props) {
                     <Typography component="h1" variant="h4" align="center"  style={{ paddingBottom: 20 }}>
                     Match Details
                     </Typography>
+                    <Divider variant='middle' style={{ paddingBottom: 20 }}/>
                     <DataGrid 
                         autoHeight 
                         rows={stats} 
@@ -128,14 +138,13 @@ export default function MatchDetail(props) {
                         getRowId={(row)=> row.player_id}
                         sortModel={[
                             {
-                                field: 'average_score',
-                                sort: 'desc'
+                                field: 'average_position',
+                                sort: 'asc'
                             }
                         ]}
-                        className={antdClasses.root}
                         onRowClick={handleClick}
                         rowsPerPageOptions={[10, 25, 50]}
-                        pageSize={10}
+                        pageSize={16}
                         sortingOrder={['asc', 'desc']}
                     />
                 </Paper>

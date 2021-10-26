@@ -1,7 +1,7 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
-import { Paper, Avatar, Typography } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
+import { Paper, Avatar, Typography, Divider } from '@material-ui/core';
+import { DataGrid } from '@mui/x-data-grid';
 import { useStylesAntDesign } from '../assets/jss/antdStyles'
 import { useRouteMatch } from 'react-router-dom';
 
@@ -12,8 +12,8 @@ export default function PlayerList(props) {
     const antdClasses = useStylesAntDesign();
     let match = useRouteMatch();
     const getName = (params) => {
-        let id = params.getValue('id')
-        let name = params.getValue('name')
+        let id = params.row.id
+        let name = params.row.name
         return {
             id: id,
             name: name
@@ -25,12 +25,14 @@ export default function PlayerList(props) {
             field: 'player_rank',
             headerName: 'Rank',
             width: 125,
+            type: 'number',
             valueFormatter: (params) => `# ${params.value}`,
         },
         {
             field: 'playername',
             headerName: 'Name',
-            width: 353,
+            minWidth: 250,
+            flex: 1,
             valueGetter: getName,
             renderCell: (params) => (
                 <>
@@ -45,41 +47,56 @@ export default function PlayerList(props) {
         },
         {
             field: 'elo',
-            headerName: 'ELO',
-            width: 200,
+            headerName: 'Elo',
+            minWidth: 125,
+            flex: 0.5,
             type: 'number'
         },
         {
             field: 'total_score',
             headerName: 'Total Score',
-            width: 200,
+            minWidth: 200,
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'average_score',
             headerName: 'Average Score',
-            valueFormatter: (params) => `${params.value.toFixed(2)}`,
-            width: 200,
+            valueFormatter: (params) => `${params.value.toLocaleString()}`,
+            minWidth: 200,
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'average_accuracy',
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)} %`,
-            width: 200,
+            minWidth: 125,
+            flex: 0.75,
             type: 'number'
         },
         {
             field: 'maps_played',
-            headerName: 'Maps Played',
-            width: 200,
+            headerName: 'Maps',
+            minWidth: 125,
+            flex: 0.5,
             type: 'number'
         },
         {
             field: 'matches_played',
-            headerName: 'Matches Played',
-            width: 200,
+            headerName: 'Matches',
+            minWidth: 125,
+            flex: 0.5,
             type: 'number'
+        },
+        {
+            field: 'last_played_days',
+            headerName: 'Last Seen',
+            minWidth: 150,
+            flex: 0.75,
+            type: 'number',
+            valueFormatter: (params) => `${params.value} days ago`
+
         }
     ]
 
@@ -101,7 +118,7 @@ export default function PlayerList(props) {
     return(
         <Fragment>
             <main className={classes.layout}>
-                <Paper className={classes.paper} minWidth={1920}>
+                <Paper className={classes.paper}>
                     <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
                         Player Leaderboards
                     </Typography>
@@ -112,11 +129,10 @@ export default function PlayerList(props) {
                         getRowId={(row)=> row.id}
                         sortModel={[
                             {
-                                field: 'elo',
-                                sort: 'desc'
+                                field: 'player_rank',
+                                sort: 'asc'
                             }
                         ]}
-                        className={antdClasses.root}
                         rowsPerPageOptions={[10, 25, 50]}
                         pageSize={25}
                         sortingOrder={['asc', 'desc']}
