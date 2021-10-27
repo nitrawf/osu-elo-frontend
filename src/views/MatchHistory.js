@@ -1,39 +1,44 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { useRouteMatch } from 'react-router-dom';
+import { useStylesDatagrid } from '../assets/jss/datagridStyles';
 import { useAuth } from '../auth';
 
 export default function MatchHistory(props) {
     const classes = useStyles();
+    const datagridClasses = useStylesDatagrid()
     let logged = useAuth()[0];
     let match = useRouteMatch();
     const columns = [
         {
             field: 'id',
             headerName: 'Match Id',
-            width: 200
+            width: 150
         },
         {
             field: 'name',
             headerName: 'Match Name',
-            width: 678         
+            minWidth: 400,
+            flex: 2     
         },
         {
             field: 'start_time',
             headerName: 'Start Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-            width: 400,
+            minWidth: 300,
+            flex: 1
         },        
         {
             field: 'end_time',
             headerName: 'End Time',
             valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-            width: 400,
+            minWidth: 300,
+            flex: 1
         }
     ]
 
@@ -73,7 +78,7 @@ export default function MatchHistory(props) {
                         columns={columns} 
                         sortModel={[
                             {
-                                field: 'start_time',
+                                field: 'id',
                                 sort: 'desc'
                             }
                         ]}
@@ -81,6 +86,7 @@ export default function MatchHistory(props) {
                         rowsPerPageOptions={[10, 25, 50]}
                         pageSize={10}
                         sortingOrder={['asc', 'desc']}
+                        className={datagridClasses.root}
                     />
                     
                     {

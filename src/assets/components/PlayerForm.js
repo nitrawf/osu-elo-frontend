@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { DataGrid } from '@material-ui/data-grid';
-
+import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
     {
@@ -9,21 +8,25 @@ const columns = [
         headerName: 'Avatar',
         renderCell: (params) => (
             <img src={`https://a.ppy.sh/${params.value}`} alt='Avatar not available' height="64" width="64"/>
-        )
+        ),
+        minWidth: 125,
     },
     {
         field: 'name', 
         headerName: 'Name',
+        minWidth: 300,
         flex: 1
     }
 ]
 
 export default function PlayerForm(props) {
+
+
     const [selectionModel, setSelectionModel] = useState([]);
 
     const handleSelectionChange = (newSelection) => {
-        setSelectionModel(newSelection.selectionModel);
-        props.parentCallback(newSelection.selectionModel)
+        setSelectionModel(newSelection);
+        props.parentCallback(newSelection)
     }
     
     return (

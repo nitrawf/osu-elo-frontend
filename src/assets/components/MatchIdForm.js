@@ -53,9 +53,10 @@ export default function MatchIdForm(props) {
                 
                 label="Initial ELO"
               >
-                <MenuItem value={1200}>Match 1 | 1200</MenuItem>
-                <MenuItem value={1100}>Match 2 | 1100</MenuItem>
-                <MenuItem value={1000}>Match 3 | 1000</MenuItem>
+                <MenuItem value={1300}>Match 1 | 1300</MenuItem>
+                <MenuItem value={1200}>Match 2 | 1200</MenuItem>
+                <MenuItem value={1100}>Match 3 | 1100</MenuItem>
+                <MenuItem value={1000}>Match 4 | 1000</MenuItem>
               </Select>
             </FormControl>
           </Grid>

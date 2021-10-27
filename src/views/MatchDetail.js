@@ -1,9 +1,9 @@
 import { useState, Fragment, useEffect } from 'react';
-import { Paper, CssBaseline, Typography, Avatar, Divider}  from '@material-ui/core';
+import { Paper, CssBaseline, Typography, Avatar }  from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
-import { useStylesAntDesign } from '../assets/jss/antdStyles';
+import { useStylesDatagrid } from '../assets/jss/datagridStyles';
 import { useStyles } from '../assets/jss/addMatchStyles';
 import { useParams } from 'react-router-dom';
 
@@ -11,9 +11,8 @@ import { useParams } from 'react-router-dom';
 export default function MatchDetail(props) {
     const classes = useStyles();
     let { matchId } = useParams();
-    const antdClasses = useStylesAntDesign();
+    const datagridClasses = useStylesDatagrid();
     const getName = (params) => {
-        console.log(params)
         let id = params.row.player_id
         let name = params.row.player_name
         return {
@@ -76,7 +75,7 @@ export default function MatchDetail(props) {
             headerName: 'Accuracy',
             valueFormatter: (params) => `${(params.value * 100).toFixed(2)} %`,
             minWidth: 125,
-            flex: 1,
+            flex: 0.75,
             type: 'number'
         },
         {
@@ -130,7 +129,6 @@ export default function MatchDetail(props) {
                     <Typography component="h1" variant="h4" align="center"  style={{ paddingBottom: 20 }}>
                     Match Details
                     </Typography>
-                    <Divider variant='middle' style={{ paddingBottom: 20 }}/>
                     <DataGrid 
                         autoHeight 
                         rows={stats} 
@@ -146,6 +144,7 @@ export default function MatchDetail(props) {
                         rowsPerPageOptions={[10, 25, 50]}
                         pageSize={16}
                         sortingOrder={['asc', 'desc']}
+                        className={datagridClasses.root}
                     />
                 </Paper>
             </main>

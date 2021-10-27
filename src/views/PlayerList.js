@@ -1,15 +1,15 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
-import { Paper, Avatar, Typography, Divider } from '@material-ui/core';
+import { Paper, Avatar, Typography } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
-import { useStylesAntDesign } from '../assets/jss/antdStyles'
+import { useStylesDatagrid } from '../assets/jss/datagridStyles'
 import { useRouteMatch } from 'react-router-dom';
 
 
 
 export default function PlayerList(props) {
     const classes = useStyles();
-    const antdClasses = useStylesAntDesign();
+    const datagridClasses = useStylesDatagrid();
     let match = useRouteMatch();
     const getName = (params) => {
         let id = params.row.id
@@ -137,6 +137,7 @@ export default function PlayerList(props) {
                         pageSize={25}
                         sortingOrder={['asc', 'desc']}
                         onRowClick={handleClick}
+                        className={datagridClasses.root}
                     />
                 </Paper>           
             </main>

@@ -1,5 +1,5 @@
-import { useStylesAntDesign } from '../jss/antdStyles'
-import { DataGrid } from '@material-ui/data-grid';
+import { useStylesDatagrid } from '../jss/datagridStyles'
+import { DataGrid } from '@mui/x-data-grid';
 import { Fragment } from 'react'
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
@@ -25,19 +25,21 @@ const columns = [
     {
         field: 'id',
         headerName: 'Match Id',
-        width: 200,
+        width: 150,
     },
     {
         field: 'name',
         headerName: 'Match Name',
-        width: 578,
+        minwidth: 300,
+        flex: 2
     },
     {
         field: 'start_time',
         type: 'date',
         headerName: 'Start Time',
         valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-        width: 300
+        minWidth: 300,
+        flex: 1
     },
     
     {
@@ -45,18 +47,20 @@ const columns = [
         type: 'dateTime',
         headerName: 'End Time',
         valueFormatter: (params) => `${params.value.replace('T', ' | ')}`,
-        width: 300
+        minWidth: 300,
+        flex: 1
     },
     {
         field: 'elo_change',
         header: 'Elo Change',
-        width: 300,
+        minWidth: 150,
+        flex: 1,
         renderCell: (params) => (renderEloCell(params.value))
     }
   ]
 
 export default function PlayerHistoryTable(props) {
-    const antdClasses = useStylesAntDesign();
+    const datagridClasses = useStylesDatagrid();
     
     const handleClick = (param, event) => {
         props.history.push(`/matches/${param.id}`);
@@ -78,7 +82,7 @@ export default function PlayerHistoryTable(props) {
                 }
             ]}
             onRowClick={handleClick}
-            className={antdClasses.root}
+            className={datagridClasses.root}
         />
     )
 }

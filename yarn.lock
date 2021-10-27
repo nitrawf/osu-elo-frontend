@@ -1938,20 +1938,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/data-grid@npm:4.0.0-alpha.23":
-  version: 4.0.0-alpha.23
-  resolution: "@material-ui/data-grid@npm:4.0.0-alpha.23"
-  dependencies:
-    "@material-ui/utils": ^5.0.0-alpha.14
-    prop-types: ^15.7.2
-    reselect: ^4.0.0
-  peerDependencies:
-    "@material-ui/core": ^4.9.12 || ^5.0.0-alpha.22
-    react: ^16.8.0 || ^17.0.0
-  checksum: b523e8945982c74b6ddea87bc12aa372500875f0f8897d82a513e6fc72c7ca9295b952aadf3e7a7bef8537c584307656b07f4d25e7d7e4a537a0aeae143c7806
-  languageName: node
-  linkType: hard
-
 "@material-ui/icons@npm:^4.11.2":
   version: 4.11.2
   resolution: "@material-ui/icons@npm:4.11.2"
@@ -2063,21 +2049,6 @@ __metadata:
     react: ^16.8.0 || ^17.0.0
     react-dom: ^16.8.0 || ^17.0.0
   checksum: 5bb7e1a27cd0a09ff9d2d2f1b8b5c9004519b635a4cbe546810172f7d32870c26cc1e846f4bcd9e8cb40202721871b55f6355ba7a6b3e9897d1553d8deac734c
-  languageName: node
-  linkType: hard
-
-"@material-ui/utils@npm:^5.0.0-alpha.14":
-  version: 5.0.0-alpha.27
-  resolution: "@material-ui/utils@npm:5.0.0-alpha.27"
-  dependencies:
-    "@babel/runtime": ^7.4.4
-    "@types/prop-types": ^15.7.3
-    "@types/react-is": ^16.7.1 || ^17.0.0
-    prop-types: ^15.7.2
-    react-is: ^16.8.0 || ^17.0.0
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-  checksum: 18c36294669700263a56329b0f73ef7bbe84668a2e0900ea2c0cb08d99bcf353dd7a8938adf58459294c122932f1f9ea7642ba7d26b4127c72cde2435096a419
   languageName: node
   linkType: hard
 
@@ -2629,7 +2600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.3":
+"@types/prop-types@npm:*":
   version: 15.7.3
   resolution: "@types/prop-types@npm:15.7.3"
   checksum: bd0eab69d5120ad3784d0c9985f902653d5924707a7f2b3702a330e762dfd61b6494954cb54ad0c52b918ffd6f1e7e27c9270e4442bc15250de348596f2f60cb
@@ -10725,7 +10696,6 @@ fsevents@^1.2.7:
   resolution: "osu-elo-frontend@workspace:."
   dependencies:
     "@material-ui/core": ^4.11.3
-    "@material-ui/data-grid": 4.0.0-alpha.23
     "@material-ui/icons": ^4.11.2
     "@material-ui/lab": ^4.0.0-alpha.57
     "@material-ui/styles": ^4.11.3
