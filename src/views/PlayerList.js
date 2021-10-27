@@ -1,6 +1,6 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, Fragment, useEffect } from 'react'
-import { Paper, Avatar, Typography } from '@material-ui/core';
+import { Paper, Avatar, Typography, Grid, FormControlLabel, Switch, Box } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import { useStylesDatagrid } from '../assets/jss/datagridStyles'
 import { useRouteMatch } from 'react-router-dom';
@@ -101,44 +101,79 @@ export default function PlayerList(props) {
     ]
 
     const [stats, setStats] = useState([]);
+    const [showInactive, setShowInactive] = useState(false)
 
     const getStats = () => {
-        fetch(`/api/player/get-all`)
-        .then(resp => resp.json())
-        .then(data => {
-            setStats(data)})
+        if (showInactive) {
+            fetch(`/api/player/get-all`)
+            .then(resp => resp.json())
+            .then(data => setStats(data))
+        }
+        else {
+            fetch(`/api/player/get-active`)
+            .then(resp => resp.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i ++) {
+                    data[i]['player_rank'] = i + 1;
+                }
+                setStats(data);
+            })
+        }
+       
     }
 
     const handleClick = (param, event) => {
         props.history.push(`${match.url}/${param.id}`)
     }
     
-    useEffect(getStats, [])
+    useEffect(getStats, [showInactive])
 
     return(
         <Fragment>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
-                    <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
-                        Player Leaderboards
-                    </Typography>
-                    <DataGrid 
-                        autoHeight 
-                        rows={stats}
-                        columns={columns} 
-                        getRowId={(row)=> row.id}
-                        sortModel={[
-                            {
-                                field: 'player_rank',
-                                sort: 'asc'
-                            }
-                        ]}
-                        rowsPerPageOptions={[10, 25, 50]}
-                        pageSize={25}
-                        sortingOrder={['asc', 'desc']}
-                        onRowClick={handleClick}
-                        className={datagridClasses.root}
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
+                                Player Leaderboards
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Box display='flex' flexDirection='row-reverse'>
+                                <FormControlLabel 
+                                    control={
+                                        <Switch
+                                            checked={showInactive}
+                                            onChange={(e) => setShowInactive(e.target.checked)}
+                                            name='showInactiveSwitch'
+                                            color='primary'
+                                        />
+                                    }
+                                    label='Show Inactive Players'
+                                />
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <DataGrid 
+                                autoHeight 
+                                rows={stats}
+                                columns={columns} 
+                                getRowId={(row)=> row.id}
+                                sortModel={[
+                                    {
+                                        field: 'player_rank',
+                                        sort: 'asc'
+                                    }
+                                ]}
+                                rowsPerPageOptions={[25]}
+                                pageSize={25}
+                                pagination
+                                sortingOrder={['asc', 'desc']}
+                                onRowClick={handleClick}
+                                className={datagridClasses.root}
+                            />
+                        </Grid>
+                    </Grid>                
                 </Paper>           
             </main>
         </Fragment>

@@ -141,8 +141,9 @@ export default function MatchDetail(props) {
                             }
                         ]}
                         onRowClick={handleClick}
-                        rowsPerPageOptions={[10, 25, 50]}
+                        rowsPerPageOptions={[16]}
                         pageSize={16}
+                        pagination
                         sortingOrder={['asc', 'desc']}
                         className={datagridClasses.root}
                     />

@@ -72,8 +72,9 @@ export default function PlayerHistoryTable(props) {
             autoHeight
             rows={matches} 
             columns={columns} 
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5]}
             pageSize={5}
+            pagination
             sortingOrder={['asc', 'desc']}
             sortModel={[
                 {

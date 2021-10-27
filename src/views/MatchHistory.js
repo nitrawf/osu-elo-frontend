@@ -83,8 +83,8 @@ export default function MatchHistory(props) {
                             }
                         ]}
                         onRowClick={handleClick}
-                        rowsPerPageOptions={[10, 25, 50]}
-                        pageSize={10}
+                        rowsPerPageOptions={[25]}
+                        pageSize={25}
                         sortingOrder={['asc', 'desc']}
                         className={datagridClasses.root}
                     />
