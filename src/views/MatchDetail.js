@@ -29,11 +29,18 @@ export default function MatchDetail(props) {
     )
 
     const columns = [
-        // Add match rank
+        {
+            field: 'rank',
+            headerName: 'Rank',
+            width: 125,
+            valueFormatter: (params) => `# ${params.value}`,
+            type: 'number'
+        },
         {
             field: 'playername',
             headerName: 'Name',
-            width: 300,
+            minWidth: 300,
+            flex: 1,
             valueGetter: getName,
             renderCell: (params) => (
                 <>
@@ -105,7 +112,13 @@ export default function MatchDetail(props) {
     useEffect( () => {
         fetch(`/api/match/get-summary/${matchId}`)
         .then(resp => resp.json())
-        .then(data => setStats(data))
+        .then(data => {
+            data.sort((a, b) => parseFloat(a['average_position']) - parseFloat(b['average_position']));
+            for (let i = 0; i < data.length; i ++) {
+                data[i]['rank'] = i + 1
+            }
+            setStats(data)
+        })
     }, [matchId])
     
     const handleClick = (param, event) => {
@@ -114,7 +127,7 @@ export default function MatchDetail(props) {
 
     const [sortModel, setSortModel] = useState([
         {
-            field: 'average_position',
+            field: 'rank',
             sort: 'asc'
         }
     ])
