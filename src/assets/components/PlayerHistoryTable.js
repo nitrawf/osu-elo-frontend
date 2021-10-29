@@ -1,25 +1,16 @@
 import { useStylesDatagrid } from '../jss/datagridStyles'
 import { DataGrid } from '@mui/x-data-grid';
-import { Fragment } from 'react'
+import { useState } from 'react'
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
+import _ from 'lodash';
 
-const renderEloCell = (value) => {
-    if (value > 0) {
-        return (
-            <Fragment>
-                <TrendingUpRoundedIcon color='primary'/>&nbsp;&nbsp;{value}
-            </Fragment>     
-        )
-    }
-    else {
-        return (
-            <Fragment>
-                <TrendingDownRoundedIcon color='error'/>&nbsp;&nbsp;{value}
-            </Fragment>
-        )
-    }
-}
+const renderEloCell = (value) => (
+        value > 0 ? 
+        <> <TrendingUpRoundedIcon color='primary'/>&nbsp;&nbsp;{value} </>     
+        :
+        <> <TrendingDownRoundedIcon color='error'/>&nbsp;&nbsp;{value} </>
+    )
 
 const columns = [
     {
@@ -61,6 +52,12 @@ const columns = [
 
 export default function PlayerHistoryTable(props) {
     const datagridClasses = useStylesDatagrid();
+    const [sortModel, setSortModel] = useState([
+        {
+            field: 'start_time',
+            sort: 'desc'
+        }
+    ])
     
     const handleClick = (param, event) => {
         props.history.push(`/matches/${param.id}`);
@@ -76,12 +73,8 @@ export default function PlayerHistoryTable(props) {
             pageSize={5}
             pagination
             sortingOrder={['asc', 'desc']}
-            sortModel={[
-                {
-                    field: 'start_time',
-                    sort: 'desc'
-                }
-            ]}
+            sortModel={sortModel}
+            onSortModelChange={(model) => {if (!_.isEqual(model, sortModel)) { setSortModel(model); }}}
             onRowClick={handleClick}
             className={datagridClasses.root}
         />

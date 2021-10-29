@@ -1,9 +1,10 @@
 import { useStyles } from '../assets/jss/addMatchStyles'
-import { useState, Fragment, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Paper, Avatar, Typography, Grid, FormControlLabel, Switch, Box } from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import { useStylesDatagrid } from '../assets/jss/datagridStyles'
 import { useRouteMatch } from 'react-router-dom';
+import _ from 'lodash';
 
 
 
@@ -101,7 +102,13 @@ export default function PlayerList(props) {
     ]
 
     const [stats, setStats] = useState([]);
-    const [showInactive, setShowInactive] = useState(false)
+    const [sortModel, setSortModel] = useState([
+        {
+            field: 'player_rank',
+            sort: 'asc'
+        }
+    ]);
+    const [showInactive, setShowInactive] = useState(false);
 
     const getStats = () => {
         if (showInactive) {
@@ -129,53 +136,47 @@ export default function PlayerList(props) {
     useEffect(getStats, [showInactive])
 
     return(
-        <Fragment>
-            <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
-                                Player Leaderboards
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Box display='flex' flexDirection='row-reverse'>
-                                <FormControlLabel 
-                                    control={
-                                        <Switch
-                                            checked={showInactive}
-                                            onChange={(e) => setShowInactive(e.target.checked)}
-                                            name='showInactiveSwitch'
-                                            color='primary'
-                                        />
-                                    }
-                                    label='Show Inactive Players'
-                                />
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <DataGrid 
-                                autoHeight 
-                                rows={stats}
-                                columns={columns} 
-                                getRowId={(row)=> row.id}
-                                sortModel={[
-                                    {
-                                        field: 'player_rank',
-                                        sort: 'asc'
-                                    }
-                                ]}
-                                rowsPerPageOptions={[25]}
-                                pageSize={25}
-                                pagination
-                                sortingOrder={['asc', 'desc']}
-                                onRowClick={handleClick}
-                                className={datagridClasses.root}
+        <main className={classes.layout}>
+            <Paper className={classes.paper}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
+                            Player Leaderboards
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box display='flex' flexDirection='row-reverse'>
+                            <FormControlLabel 
+                                control={
+                                    <Switch
+                                        checked={showInactive}
+                                        onChange={(e) => setShowInactive(e.target.checked)}
+                                        name='showInactiveSwitch'
+                                        color='primary'
+                                    />
+                                }
+                                label='Show Inactive Players'
                             />
-                        </Grid>
-                    </Grid>                
-                </Paper>           
-            </main>
-        </Fragment>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <DataGrid 
+                            autoHeight 
+                            rows={stats}
+                            columns={columns} 
+                            getRowId={(row)=> row.id}
+                            sortModel={sortModel}
+                            onSortModelChange={(model) => {if (!_.isEqual(model, sortModel)) { setSortModel(model); }}}
+                            rowsPerPageOptions={[25]}
+                            pageSize={25}
+                            pagination
+                            sortingOrder={['asc', 'desc']}
+                            onRowClick={handleClick}
+                            className={datagridClasses.root}
+                        />
+                    </Grid>
+                </Grid>                
+            </Paper>           
+        </main>
     )
 }

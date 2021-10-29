@@ -1,11 +1,12 @@
-import { useState, Fragment, useEffect } from 'react';
-import { Paper, CssBaseline, Typography, Avatar }  from '@material-ui/core';
+import { useState, useEffect } from 'react';
+import { Paper, Typography, Avatar }  from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
 import { useStylesDatagrid } from '../assets/jss/datagridStyles';
 import { useStyles } from '../assets/jss/addMatchStyles';
 import { useParams } from 'react-router-dom';
+import _ from 'lodash';
 
 
 export default function MatchDetail(props) {
@@ -20,22 +21,12 @@ export default function MatchDetail(props) {
             name: name
         }
     }
-    const renderEloCell = (value) => {
-        if (value > 0) {
-            return (
-                <Fragment>
-                    <TrendingUpRoundedIcon color='primary'/>&nbsp;&nbsp;{value}
-                </Fragment>     
-            )
-        }
-        else {
-            return (
-                <Fragment>
-                    <TrendingDownRoundedIcon color='error'/>&nbsp;&nbsp;{value}
-                </Fragment>
-            )
-        }
-    }
+    const renderEloCell = (value) => (
+        value > 0 ? 
+        <> <TrendingUpRoundedIcon color='primary'/>&nbsp;&nbsp;{value} </>     
+        :
+        <> <TrendingDownRoundedIcon color='error'/>&nbsp;&nbsp;{value} </>
+    )
 
     const columns = [
         // Add match rank
@@ -52,8 +43,8 @@ export default function MatchDetail(props) {
                     </Typography>
                 </>
             ),
-            sortComparator: (v1, v2, cellParams1, cellParams2) =>
-                getName(cellParams1).name.localeCompare(getName(cellParams2).name),
+            sortComparator: (v1, v2, param1, param2) =>
+            param1.api.getCellValue(param1.id, 'player_name') - param2.api.getCellValue(param2.id, 'player_name'),
         },
         {
             field: 'total_score',
@@ -121,34 +112,34 @@ export default function MatchDetail(props) {
         props.history.push(`/players/${param.id}`)
     }
 
-    return(
-        <Fragment>
-            <CssBaseline />
-            <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center"  style={{ paddingBottom: 20 }}>
-                    Match Details
-                    </Typography>
-                    <DataGrid 
-                        autoHeight 
-                        rows={stats} 
-                        columns={columns} 
-                        getRowId={(row)=> row.player_id}
-                        sortModel={[
-                            {
-                                field: 'average_position',
-                                sort: 'asc'
-                            }
-                        ]}
-                        onRowClick={handleClick}
-                        rowsPerPageOptions={[16]}
-                        pageSize={16}
-                        pagination
-                        sortingOrder={['asc', 'desc']}
-                        className={datagridClasses.root}
-                    />
-                </Paper>
-            </main>
-        </Fragment>
+    const [sortModel, setSortModel] = useState([
+        {
+            field: 'average_position',
+            sort: 'asc'
+        }
+    ])
+
+    return (
+        <main className={classes.layout}>
+            <Paper className={classes.paper}>
+                <Typography component="h1" variant="h4" align="center"  style={{ paddingBottom: 20 }}>
+                Match Details
+                </Typography>
+                <DataGrid 
+                    autoHeight 
+                    rows={stats} 
+                    columns={columns} 
+                    getRowId={(row)=> row.player_id}
+                    sortModel={sortModel}
+                    onSortModelChange={(model) => {if (!_.isEqual(model, sortModel)) { setSortModel(model); }}}
+                    onRowClick={handleClick}
+                    rowsPerPageOptions={[16]}
+                    pageSize={16}
+                    pagination
+                    sortingOrder={['asc', 'desc']}
+                    className={datagridClasses.root}
+                />
+            </Paper>
+        </main>
     )
 }
