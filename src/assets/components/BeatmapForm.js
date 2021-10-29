@@ -29,7 +29,6 @@ const columns = [
         flex: 1,
         minWidth: 300
     }
-
 ]
 
 export default function BeatmapForm(props) {
