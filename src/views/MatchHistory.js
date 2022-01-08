@@ -46,7 +46,7 @@ export default function MatchHistory(props) {
     const [matches, setMatches] = useState([]);
     const [sortModel, setSortModel] = useState([
         {
-            field: 'id',
+            field: 'start_time',
             sort: 'desc'
         }
     ])
