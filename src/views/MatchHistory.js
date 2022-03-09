@@ -2,7 +2,6 @@ import { useStyles } from '../assets/jss/addMatchStyles'
 import { useState, useEffect } from 'react'
 import Paper from '@material-ui/core/Paper';
 import { DataGrid } from '@mui/x-data-grid';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { useRouteMatch } from 'react-router-dom';
@@ -75,9 +74,6 @@ export default function MatchHistory(props) {
     return(
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center" style={{ paddingBottom: 20 }}>
-                       Match History
-                    </Typography>
                     <DataGrid 
                         autoHeight
                         rows={matches} 

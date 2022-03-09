@@ -6,8 +6,6 @@ import { useStylesDatagrid } from '../assets/jss/datagridStyles'
 import { useRouteMatch } from 'react-router-dom';
 import _ from 'lodash';
 
-
-
 export default function PlayerList(props) {
     const classes = useStyles();
     const datagridClasses = useStylesDatagrid();
@@ -139,11 +137,6 @@ export default function PlayerList(props) {
         <main className={classes.layout}>
             <Paper className={classes.paper}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography variant="h4" align="center"  style={{ paddingBottom: 20 }}>
-                            Player Leaderboards
-                        </Typography>
-                    </Grid>
                     <Grid item xs={12}>
                         <Box display='flex' flexDirection='row-reverse'>
                             <FormControlLabel 
