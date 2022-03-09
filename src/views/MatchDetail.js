@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Paper, Typography, Avatar }  from '@material-ui/core';
+import { Paper, Typography, Avatar, Link }  from '@material-ui/core';
 import { DataGrid } from '@mui/x-data-grid';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@material-ui/icons/TrendingDownRounded';
@@ -117,7 +117,7 @@ export default function MatchDetail(props) {
             for (let i = 0; i < data.length; i ++) {
                 data[i]['rank'] = i + 1
             }
-            setStats(data)
+            setStats(data);
         })
     }, [matchId])
     
@@ -136,7 +136,12 @@ export default function MatchDetail(props) {
         <main className={classes.layout}>
             <Paper className={classes.paper}>
                 <Typography component="h1" variant="h4" align="center"  style={{ paddingBottom: 20 }}>
-                Match Details
+                    { 
+                        stats.length > 0 && 
+                        <Link href={`https://osu.ppy.sh/community/matches/${matchId}`} target="_blank" color="inherit">
+                            {stats[0]['match_name']}
+                        </Link>          
+                    }
                 </Typography>
                 <DataGrid 
                     autoHeight 
